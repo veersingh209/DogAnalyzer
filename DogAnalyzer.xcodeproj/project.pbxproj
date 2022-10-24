@@ -11,6 +11,8 @@
 		4889534129073F6E003FD054 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534029073F6E003FD054 /* ContentView.swift */; };
 		4889534329073F70003FD054 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4889534229073F70003FD054 /* Assets.xcassets */; };
 		4889534629073F70003FD054 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4889534529073F70003FD054 /* Preview Assets.xcassets */; };
+		4889534D29073FE7003FD054 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4889534C29073FE7003FD054 /* MobileNetV2.mlmodel */; };
+		4889534F29073FEF003FD054 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534E29073FEF003FD054 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		4889534029073F6E003FD054 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4889534229073F70003FD054 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4889534529073F70003FD054 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4889534C29073FE7003FD054 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNetV2.mlmodel; sourceTree = "<group>"; };
+		4889534E29073FEF003FD054 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 			children = (
 				4889533E29073F6E003FD054 /* DogAnalyzerApp.swift */,
 				4889534029073F6E003FD054 /* ContentView.swift */,
+				4889534E29073FEF003FD054 /* Constants.swift */,
+				4889534C29073FE7003FD054 /* MobileNetV2.mlmodel */,
 				4889534229073F70003FD054 /* Assets.xcassets */,
 				4889534429073F70003FD054 /* Preview Content */,
 			);
@@ -137,8 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4889534D29073FE7003FD054 /* MobileNetV2.mlmodel in Sources */,
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
+				4889534F29073FEF003FD054 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
