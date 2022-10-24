@@ -31,7 +31,7 @@ class DogModel: ObservableObject {
                         
                         if let dog = Dog(json: item) {
                             DispatchQueue.main.async {
-                                while dog.imageData == nil {}
+                                while dog.results.isEmpty {}
                                 self.dog = dog
                             }
                         }

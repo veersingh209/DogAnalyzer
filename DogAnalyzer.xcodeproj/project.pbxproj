@@ -15,6 +15,8 @@
 		4889534F29073FEF003FD054 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534E29073FEF003FD054 /* Constants.swift */; };
 		488953512907404F003FD054 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953502907404F003FD054 /* Dog.swift */; };
 		4889535329074168003FD054 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535229074168003FD054 /* DogModel.swift */; };
+		48895355290745B1003FD054 /* DogRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895354290745B1003FD054 /* DogRowView.swift */; };
+		48895357290745DB003FD054 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895356290745DB003FD054 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		4889534E29073FEF003FD054 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		488953502907404F003FD054 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		4889535229074168003FD054 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
+		48895354290745B1003FD054 /* DogRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogRowView.swift; sourceTree = "<group>"; };
+		48895356290745DB003FD054 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,13 +64,12 @@
 			isa = PBXGroup;
 			children = (
 				4889533E29073F6E003FD054 /* DogAnalyzerApp.swift */,
-				4889534029073F6E003FD054 /* ContentView.swift */,
-				4889534E29073FEF003FD054 /* Constants.swift */,
-				488953502907404F003FD054 /* Dog.swift */,
-				4889534C29073FE7003FD054 /* MobileNetV2.mlmodel */,
+				4889535A290745FC003FD054 /* ViewModel */,
+				48895359290745F3003FD054 /* Model */,
+				48895358290745E3003FD054 /* Views */,
+				4889535B29074610003FD054 /* Helper */,
 				4889534229073F70003FD054 /* Assets.xcassets */,
 				4889534429073F70003FD054 /* Preview Content */,
-				4889535229074168003FD054 /* DogModel.swift */,
 			);
 			path = DogAnalyzer;
 			sourceTree = "<group>";
@@ -77,6 +80,41 @@
 				4889534529073F70003FD054 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		48895358290745E3003FD054 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4889534029073F6E003FD054 /* ContentView.swift */,
+				48895354290745B1003FD054 /* DogRowView.swift */,
+				48895356290745DB003FD054 /* ProgressBarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		48895359290745F3003FD054 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				488953502907404F003FD054 /* Dog.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4889535A290745FC003FD054 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4889535229074168003FD054 /* DogModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4889535B29074610003FD054 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				4889534C29073FE7003FD054 /* MobileNetV2.mlmodel */,
+				4889534E29073FEF003FD054 /* Constants.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +191,8 @@
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				488953512907404F003FD054 /* Dog.swift in Sources */,
+				48895355290745B1003FD054 /* DogRowView.swift in Sources */,
+				48895357290745DB003FD054 /* ProgressBarView.swift in Sources */,
 				4889535329074168003FD054 /* DogModel.swift in Sources */,
 				4889534F29073FEF003FD054 /* Constants.swift in Sources */,
 			);
