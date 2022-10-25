@@ -17,6 +17,8 @@
 		4889535329074168003FD054 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535229074168003FD054 /* DogModel.swift */; };
 		48895355290745B1003FD054 /* DogRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895354290745B1003FD054 /* DogRowView.swift */; };
 		48895357290745DB003FD054 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895356290745DB003FD054 /* ProgressBarView.swift */; };
+		4889535D29084930003FD054 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535C29084930003FD054 /* ImagePickerView.swift */; };
+		4889535F290849D0003FD054 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535E290849D0003FD054 /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		4889535229074168003FD054 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
 		48895354290745B1003FD054 /* DogRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogRowView.swift; sourceTree = "<group>"; };
 		48895356290745DB003FD054 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		4889535C29084930003FD054 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		4889535E290849D0003FD054 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 				4889535A290745FC003FD054 /* ViewModel */,
 				48895359290745F3003FD054 /* Model */,
 				48895358290745E3003FD054 /* Views */,
+				48895360290849F9003FD054 /* Camera */,
 				4889535B29074610003FD054 /* Helper */,
 				4889534229073F70003FD054 /* Assets.xcassets */,
 				4889534429073F70003FD054 /* Preview Content */,
@@ -115,6 +120,15 @@
 				4889534E29073FEF003FD054 /* Constants.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		48895360290849F9003FD054 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				4889535C29084930003FD054 /* ImagePickerView.swift */,
+				4889535E290849D0003FD054 /* Coordinator.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,8 +203,10 @@
 			files = (
 				4889534D29073FE7003FD054 /* MobileNetV2.mlmodel in Sources */,
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
+				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				488953512907404F003FD054 /* Dog.swift in Sources */,
+				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,
 				48895355290745B1003FD054 /* DogRowView.swift in Sources */,
 				48895357290745DB003FD054 /* ProgressBarView.swift in Sources */,
 				4889535329074168003FD054 /* DogModel.swift in Sources */,
@@ -326,6 +342,7 @@
 				DEVELOPMENT_TEAM = R5HPSSBSS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Identifiy your dog breed using the camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -355,6 +372,7 @@
 				DEVELOPMENT_TEAM = R5HPSSBSS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Identifiy your dog breed using the camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

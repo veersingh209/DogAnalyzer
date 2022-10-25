@@ -29,6 +29,14 @@ class Dog: ObservableObject {
         self.results = []
     }
     
+    init(image: Data?) {
+        self.imageUrl = ""
+        self.imageData = image
+        self.results = []
+        
+        self.classifyAnimal(image: image)
+    }
+    
     init?(json: [String:Any]) {
         
         guard let imageUrl = json["url"] as? String else {
@@ -54,7 +62,7 @@ class Dog: ObservableObject {
             
             if error == nil && data != nil {
                 self.imageData = data
-                self.classifyAnimal()
+                self.classifyAnimal(image: self.imageData)
             }
 
         }
@@ -62,10 +70,10 @@ class Dog: ObservableObject {
         dataTask.resume()
     }
     
-    func classifyAnimal() {
+    func classifyAnimal(image: Data?) {
         
         let model = try! VNCoreMLModel(for: modelFile.model)
-        let handler = VNImageRequestHandler(data: imageData!)
+        let handler = VNImageRequestHandler(data: image!)
         
         // Create request
         let request = VNCoreMLRequest(model: model) { (request, error) in
@@ -76,6 +84,7 @@ class Dog: ObservableObject {
                 return
             }
             
+            self.results.removeAll()
             // Add top 4 results
             for i in (0...3) {
                 

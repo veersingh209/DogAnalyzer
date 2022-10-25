@@ -47,4 +47,9 @@ class DogModel: ObservableObject {
         data.resume()
     }
     
+    func updateDog(image: Data?) {
+        self.dog = Dog(image: image)
+        
+    }
+    
 }
