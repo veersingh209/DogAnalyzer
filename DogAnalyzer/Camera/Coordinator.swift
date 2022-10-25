@@ -19,8 +19,20 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        self.picker.selectedImage = selectedImage
+        
+        self.picker.selectedImage = selectedImage.upOrientationImage()
         self.picker.isPresented.wrappedValue.dismiss()
     }
     
+}
+
+// fix issue where captured image shows roated when displayed
+extension UIImage {
+    func upOrientationImage() -> UIImage {
+            UIGraphicsBeginImageContextWithOptions(size, false, scale)
+            draw(in: CGRect(origin: .zero, size: size))
+            let result = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return result!
+    }
 }

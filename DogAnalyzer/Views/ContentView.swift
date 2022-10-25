@@ -111,8 +111,6 @@ struct ContentView: View {
             if selectedImage != nil {
                 DispatchQueue.main.async {
                     imageModel.updateDog(image: selectedImage!.pngData())
-//                    imageModel.dog.imageData = selectedImage!.pngData()
-//                    imageModel.dog.classifyAnimal(image: selectedImage!.pngData())
                 }
             }
         }) {
