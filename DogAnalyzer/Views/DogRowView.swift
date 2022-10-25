@@ -16,7 +16,7 @@ struct DogRowView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.white)
+                .fill(Color("AdaptiveBackground"))
                 .cornerRadius(10)
                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
             
@@ -24,9 +24,11 @@ struct DogRowView: View {
                 HStack {
                     Text(imageLabel)
                         .bold()
+                        .foregroundColor(Color("AdaptiveText"))
                     Spacer()
                     Text(String(format: "%.2f%%", confidence * 100))
                         .bold()
+                        .foregroundColor(Color("AdaptiveText"))
                 }
                 .padding(.leading, 10)
                 .padding(.trailing, 10)

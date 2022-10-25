@@ -76,14 +76,15 @@ class Dog: ObservableObject {
                 return
             }
             
-            // Update our results variable
-            for classification in results {
+            // Add top 4 results
+            for i in (0...3) {
                 
-                var identifier = classification.identifier
+                var identifier = results[i].identifier
                 identifier = identifier.prefix(1).capitalized + identifier.dropFirst()
-                self.results.append(Result(imageLabel: identifier, confidence: Double(classification.confidence)))
-
+                self.results.append(Result(imageLabel: identifier, confidence: Double(results[i].confidence)))
+                
             }
+
         }
         
         // Execute request

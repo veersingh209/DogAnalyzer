@@ -36,6 +36,7 @@ struct ContentView: View {
                         height: geo.size.height,
                         alignment: .center
                     )
+                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
                     .cornerRadius(15)
                     
                     
