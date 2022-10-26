@@ -14,62 +14,67 @@ struct ContentView: View {
     @State private var selectedImage: UIImage?
     @State private var isImagePickerDisplay = false
     
+    @State var showDetailView = false
+    
     var body: some View {
         
-        VStack {
-            
-            Text("Dog Breed Identification")
-                .font(.title)
-                .bold()
-                .padding(.leading, 10)
+        VStack(alignment: .leading, spacing: 0.0) {
             
             GeometryReader { geo in
                 
                 TabView() {
                     
-                    ZStack {
-                        Rectangle()
-                            .foregroundColor(.white)
+                    VStack {
                         
-                        //                        if selectedImage != nil {
-                        //                            Image(uiImage: selectedImage!)
-                        //                                .resizable()
-                        //                                .scaledToFill()
-                        //                                .clipped()
-                        //                        } else {
-                        Image(uiImage: UIImage(data: imageModel.dog.imageData ?? Data()) ?? UIImage())
-                            .resizable()
-                            .scaledToFill()
-                            .clipped()
-                        //                        }
-                        //
+                        Button {
+                            showDetailView = true
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(.white)
+                                
+                                Image(uiImage: UIImage(data: imageModel.dog.imageData ?? Data()) ?? UIImage())
+                                    .resizable()
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                    .scaledToFill()
+                                    .clipped()
+                                
+                                Text(imageModel.dog.identifier)
+                                    .frame(
+                                        width: geo.size.width - 40,
+                                        height: geo.size.height - 80,
+                                        alignment: .bottomLeading
+                                    )
+                                    .font(.largeTitle)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 20)
+                                    .padding(.bottom, 20)
+                                
+                            }
+                            .frame(
+                                width: geo.size.width - 40,
+                                height: geo.size.height - 50,
+                                alignment: .center
+                            )
+                            .cornerRadius(15)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .sheet(isPresented: $showDetailView) {
+                            ImageDetailView(model: imageModel)
+                        }
+                        
                     }
-                    .frame(
-                        width: geo.size.width - 30,
-                        height: geo.size.height,
-                        alignment: .center
-                    )
-                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                    .cornerRadius(15)
-                    
                     
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 .shadow(
                     color: Color(.sRGB, red: 0, green: 0, blue: 0, opacity: 0.65),
                     radius: 10,
                     x: -5,
                     y: 5
                 )
-            }
-            
-            ScrollView {
-                LazyVStack {
-                    ForEach(imageModel.dog.results) { result in
-                        DogRowView(imageLabel: result.imageLabel, confidence: result.confidence)
-                    }
-                    .padding([.leading, .top , .trailing], 10)
-                }
             }
             .onAppear(perform: imageModel.getDogs)
             .opacity(imageModel.dog.imageData == nil ? 0 : 1)
@@ -102,16 +107,13 @@ struct ContentView: View {
                     Text("Random")
                         .bold()
                 }
-                
             }
             .padding(.horizontal, 30)
             
         }
         .sheet(isPresented: self.$isImagePickerDisplay, onDismiss: {
             if selectedImage != nil {
-                DispatchQueue.main.async {
-                    imageModel.updateDog(image: selectedImage!.pngData())
-                }
+                imageModel.updateDog(image: selectedImage!.pngData())
             }
         }) {
             ImagePickerView(selectedImage: self.$selectedImage, sourceType: self.sourceType)
@@ -119,10 +121,4 @@ struct ContentView: View {
         
     }
     
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(imageModel: DogModel())
-    }
 }
