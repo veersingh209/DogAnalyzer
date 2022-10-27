@@ -148,7 +148,7 @@ struct ContentView: View {
             case .showDetailView:
                 DogDetailView()
             case .showOptionMenu:
-                OptionsMenu()
+                SettingsMainMenu()
             case .isImagePickerDisplay:
                 ImagePickerView(selectedImage: self.$selectedImage, sourceType: self.$sourceType)
                     .onDisappear {

@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		480E4098290B1E720097BEB5 /* OptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E4097290B1E720097BEB5 /* OptionsMenu.swift */; };
+		480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E4097290B1E720097BEB5 /* SettingsMainMenu.swift */; };
+		480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E409C290B2ED10097BEB5 /* AppColor.swift */; };
+		480E409F290B2EEA0097BEB5 /* ImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E409E290B2EEA0097BEB5 /* ImageSource.swift */; };
 		4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889533E29073F6E003FD054 /* DogAnalyzerApp.swift */; };
 		4889534129073F6E003FD054 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534029073F6E003FD054 /* ContentView.swift */; };
 		4889534329073F70003FD054 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4889534229073F70003FD054 /* Assets.xcassets */; };
@@ -26,7 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		480E4097290B1E720097BEB5 /* OptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenu.swift; sourceTree = "<group>"; };
+		480E4097290B1E720097BEB5 /* SettingsMainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainMenu.swift; sourceTree = "<group>"; };
+		480E409C290B2ED10097BEB5 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		480E409E290B2EEA0097BEB5 /* ImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSource.swift; sourceTree = "<group>"; };
 		4889533B29073F6E003FD054 /* DogAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4889533E29073F6E003FD054 /* DogAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogAnalyzerApp.swift; sourceTree = "<group>"; };
 		4889534029073F6E003FD054 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +60,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		480E409B290B2EB80097BEB5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				480E4097290B1E720097BEB5 /* SettingsMainMenu.swift */,
+				480E409C290B2ED10097BEB5 /* AppColor.swift */,
+				480E409E290B2EEA0097BEB5 /* ImageSource.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		4889533229073F6E003FD054 = {
 			isa = PBXGroup;
 			children = (
@@ -100,7 +114,7 @@
 			children = (
 				4889534029073F6E003FD054 /* ContentView.swift */,
 				488953702909E532003FD054 /* DogDetailView.swift */,
-				480E4097290B1E720097BEB5 /* OptionsMenu.swift */,
+				480E409B290B2EB80097BEB5 /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,13 +241,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
+				480E409F290B2EEA0097BEB5 /* ImageSource.swift in Sources */,
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */,
+				480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */,
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				4889537B290B014F003FD054 /* ContentModel.swift in Sources */,
 				48895376290AF933003FD054 /* Dog.swift in Sources */,
-				480E4098290B1E720097BEB5 /* OptionsMenu.swift in Sources */,
+				480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */,
 				488953512907404F003FD054 /* DogModel.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,
 				4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */,

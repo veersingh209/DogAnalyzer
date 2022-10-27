@@ -9,6 +9,26 @@ import CoreML
 import Vision
 import WikipediaKit
 
+enum SourceImageSelection: Identifiable {
+    case allSources,
+         dogCEO,
+         dopAPI
+    
+    var id: String {
+        "hash"
+    }
+}
+
+enum AppColorSelection: Identifiable {
+    case system,
+         dark,
+         light
+    
+    var id: String {
+        "hash"
+    }
+}
+
 class ContentModel: ObservableObject {
     
     @Published var dog = Dog()
@@ -18,6 +38,9 @@ class ContentModel: ObservableObject {
     @Published var confidence: Double?
     @Published var dogInfo: String?
     @Published var loading: Bool
+    
+    @Published var colorSelection: AppColorSelection?
+    @Published var imageSelection: SourceImageSelection?
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     
