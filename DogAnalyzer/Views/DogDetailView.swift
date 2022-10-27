@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct DogDetailView: View {
-    var model: DogModel
+    @EnvironmentObject var model: ContentModel
     @State private var showingAlert = false
     
     var body: some View {
@@ -16,27 +16,27 @@ struct DogDetailView: View {
             
             VStack(alignment: .leading) {
                 VStack(alignment: .center) {
-                    Image(uiImage: UIImage(data: model.dog.imageData ?? Data()) ?? UIImage())
+                    Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                         .resizable()
                         .scaledToFill()
-                        .frame(height: 250, alignment: .center)
+                        .frame(height: 250, alignment: .top)
                         .clipped()
                 }
                 
                 VStack(alignment: .leading, spacing: 1.0) {
                     
-                    Text(model.dog.identifier!)
+                    Text(model.identifier ?? titleErrorMessage)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding(.bottom)
                     
-                    Text("\(model.dog.dogInfo ?? "No assoicated Wiki found")")
+                    Text("\(model.dogInfo ?? wikiErrorMessage)")
                         .font(.caption)
                     
                     HStack {
                         Spacer()
                         Button {
-                            let id = model.dog.identifier!.replacingOccurrences(of: " ", with: "_")
+                            let id = model.identifier!.replacingOccurrences(of: " ", with: "_")
 
                             if let url = URL(string: "\(wikiURL)\(id)") {
                                 UIApplication.shared.open(url)
@@ -50,7 +50,7 @@ struct DogDetailView: View {
                             Button("OK", role: .cancel) { }
                         }
                         // Disbale button if no assioated Wiki result
-                        .disabled(model.dog.dogInfo == nil)
+                        .disabled(model.dogInfo == nil)
                         .padding(.top, 10)
                         .padding(.trailing, 10)
                     }

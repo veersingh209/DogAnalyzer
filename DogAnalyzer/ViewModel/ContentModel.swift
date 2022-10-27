@@ -1,29 +1,34 @@
 //
-//  Dog.swift
+//  ContentModel.swift
 //  DogAnalyzer
 //
-//  Created by Veer Singh on 10/24/22.
+//  Created by Veer Singh on 10/27/22.
 //
 
 import CoreML
 import Vision
 import WikipediaKit
 
-class Dog: ObservableObject {
-    var imageUrl: String
+class ContentModel: ObservableObject {
+    
+    @Published var dog = Dog()
+    @Published var imageData: Data?
+    
     @Published var identifier: String?
     @Published var confidence: Double?
-    @Published var imageData: Data?
     @Published var dogInfo: String?
+    @Published var loading: Bool
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     
     init() {
+        self.imageData = nil
         self.identifier = nil
         self.confidence = nil
-        self.imageData = nil
         self.dogInfo = nil
-        self.imageUrl = ""
+        self.loading = true
+        
+        self.getDogData()
     }
     
     init(image: Data?) {
@@ -31,45 +36,73 @@ class Dog: ObservableObject {
         self.identifier = nil
         self.confidence = nil
         self.dogInfo = nil
-        self.imageUrl = ""
+        self.loading = true
         
         self.classifyAnimal(image: image)
     }
     
-    init?(json: [String:Any]) {
-        
-        guard let imageUrl = json["url"] as? String else {
-            return nil
-        }
-        self.identifier = nil
-        self.confidence = nil
-        self.imageData = nil
-        self.dogInfo = nil
-        self.imageUrl = imageUrl
-        
-        getImage()
-    }
-    
-    func getImage() {
-        let url = URL(string: imageUrl)
-        guard url != nil else {
-            print("ERROR! Unale to create url object")
-            return
-        }
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+    func getDogData() {
+        self.loading = true
+        print("Current Loading Status: \(loading)")
+        if let url = URL(string: dogCeoURL) {
             
-            if error == nil && data != nil {
-                self.imageData = data
-                self.classifyAnimal(image: self.imageData)
+            var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            
+            let session = URLSession.shared
+            
+            let dataTask = session.dataTask(with: request) { data, respone, error in
+                
+                if error == nil {
+                    
+                    do {
+                        
+                        let decoder = JSONDecoder()
+                        let results = try decoder.decode(Dog.self, from: data!)
+                        
+                        if results.status == successMessage {
+                            DispatchQueue.main.async {
+                                results.id = UUID()
+                                self.getImageData(imageUrl: results.message)
+                                self.dog = results
+                            }
+                        }
+
+                    } catch {
+                        print("ERROR! Unable to parse JSON Data: \(error)")
+                    }
+                    
+                } else {
+                    print("ERROR! Unable to reach Dog API: \(String(describing: error))")
+                }
             }
             
+            dataTask.resume()
         }
-        
-        dataTask.resume()
     }
     
+    func getImageData(imageUrl: String?) {
+        
+        if let url = URL(string: imageUrl!) {
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: url) { data, response, error in
+                if error == nil {
+                    
+                    DispatchQueue.main.async {
+                        self.imageData = data!
+                        self.classifyAnimal(image: self.imageData)
+                    }
+                    
+                } else {
+                    print("ERROR! Unable to retrieve image data: \(String(describing: error))")
+                }
+            }
+            dataTask.resume()
+        }
+        
+    }
+
     func classifyAnimal(image: Data?) {
         
         let model = try! VNCoreMLModel(for: modelFile.model)
@@ -83,7 +116,6 @@ class Dog: ObservableObject {
                 print("Could not classify animal")
                 return
             }
-            
             self.identifier = results[0].identifier
             self.confidence = Double(results[0].confidence)
             
@@ -100,6 +132,8 @@ class Dog: ObservableObject {
         
         self.wikiInfo(dogBreed: self.identifier!)
         
+        self.loading = false
+        print("Current Loading Status: \(loading)")
     }
     
     func wikiInfo(dogBreed: String) {
@@ -167,6 +201,6 @@ class Dog: ObservableObject {
                 }
             }
         }
-        
     }
+    
 }

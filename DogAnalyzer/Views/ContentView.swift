@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var imageModel: DogModel
+    @EnvironmentObject var model: ContentModel
     
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     @State private var selectedImage: UIImage?
@@ -31,24 +31,28 @@ struct ContentView: View {
                         } label: {
                             ZStack {
                                 Rectangle()
-                                    .foregroundColor(.white)
+                                    .foregroundColor(Color("AdaptiveBackground"))
                                 
-                                Image(uiImage: UIImage(data: imageModel.dog.imageData ?? Data()) ?? UIImage())
-                                    .resizable()
-                                    .frame(alignment: .leading)
-                                    .scaledToFill()
-                                    .clipped()
-                                
-                                Text(imageModel.dog.identifier ?? "")
-                                    .frame(
-                                        width: geo.size.width - 40,
-                                        height: geo.size.height - 80,
-                                        alignment: .bottomLeading
-                                    )
-                                    .font(.largeTitle)
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .padding([.leading, .bottom], 20)
+                                if model.loading {
+                                    ProgressView()
+                                } else {
+                                    Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
+                                        .resizable()
+                                        .frame(alignment: .leading)
+                                        .scaledToFill()
+                                        .clipped()
+                                    
+                                    Text(model.identifier ?? titleErrorMessage)
+                                        .frame(
+                                            width: geo.size.width - 40,
+                                            height: geo.size.height - 80,
+                                            alignment: .bottomLeading
+                                        )
+                                        .font(.largeTitle)
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .padding([.leading, .bottom], 20)
+                                }
                                 
                             }
                             .frame(
@@ -60,7 +64,7 @@ struct ContentView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .sheet(isPresented: $showDetailView) {
-                            DogDetailView(model: imageModel)
+                            DogDetailView()
                         }
                         
                     }
@@ -75,11 +79,11 @@ struct ContentView: View {
                     y: 5
                 )
             }
-            .onAppear(perform: imageModel.getDogs)
-            .opacity(imageModel.dog.imageData == nil ? 0 : 1)
+            .onAppear(perform: model.getDogData)
+            .opacity(model.imageData == nil ? 0 : 1)
             
             // Buttons
-            HStack(spacing: 0) {
+            HStack(spacing: 30) {
                 
                 Button(action: {
                     self.sourceType = .camera
@@ -88,7 +92,7 @@ struct ContentView: View {
                 }, label: {
                     Image(systemName: "camera")
                 })
-                .padding()
+                .disabled(model.loading)
                 
                 Button(action: {
                     self.sourceType = .photoLibrary
@@ -96,23 +100,24 @@ struct ContentView: View {
                 }, label: {
                     Image(systemName: "photo")
                 })
-                .padding()
+                .disabled(model.loading)
                 
                 Spacer()
                 
                 Button(action: {
-                    imageModel.getDogs()
-                }) { () -> Text in
+                    model.getDogData()
+                }, label: {
                     Text("Random")
                         .bold()
-                }
+                })
+                .disabled(model.loading)
             }
             .padding(.horizontal, 30)
             
         }
         .sheet(isPresented: self.$isImagePickerDisplay, onDismiss: {
             if selectedImage != nil {
-                imageModel.updateDog(image: selectedImage!.pngData())
+                ContentModel(image: selectedImage!.pngData())
             }
         }) {
             ImagePickerView(selectedImage: self.$selectedImage, sourceType: self.sourceType)
