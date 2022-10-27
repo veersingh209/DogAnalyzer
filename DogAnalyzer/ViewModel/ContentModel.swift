@@ -31,19 +31,33 @@ class ContentModel: ObservableObject {
         self.getDogData()
     }
     
-    init(image: Data?) {
-        self.imageData = image
-        self.identifier = nil
-        self.confidence = nil
-        self.dogInfo = nil
-        self.loading = true
-        
-        self.classifyAnimal(image: image)
+    func newCameraImage(image: Data?) {
+        DispatchQueue.main.async {
+            self.imageData = image
+            
+            self.identifier = nil
+            self.confidence = nil
+            self.dogInfo = nil
+            self.loading = true
+            
+            self.classifyAnimal(image: image)
+        }
+    }
+    
+    func setLoadingTrue() {
+        DispatchQueue.main.async {
+            self.loading = true
+        }
+    }
+    
+    func setLoadingFalse() {
+        DispatchQueue.main.async {
+            self.loading = false
+        }
     }
     
     func getDogData() {
         self.loading = true
-        print("Current Loading Status: \(loading)")
         if let url = URL(string: dogCeoURL) {
             
             var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
@@ -67,7 +81,7 @@ class ContentModel: ObservableObject {
                                 self.dog = results
                             }
                         }
-
+                        
                     } catch {
                         print("ERROR! Unable to parse JSON Data: \(error)")
                     }
@@ -102,7 +116,7 @@ class ContentModel: ObservableObject {
         }
         
     }
-
+    
     func classifyAnimal(image: Data?) {
         
         let model = try! VNCoreMLModel(for: modelFile.model)
@@ -131,9 +145,7 @@ class ContentModel: ObservableObject {
         }
         
         self.wikiInfo(dogBreed: self.identifier!)
-        
         self.loading = false
-        print("Current Loading Status: \(loading)")
     }
     
     func wikiInfo(dogBreed: String) {
@@ -197,7 +209,7 @@ class ContentModel: ObservableObject {
                             self.dogInfo = nil
                         }
                     }
-                
+                    
                 }
             }
         }

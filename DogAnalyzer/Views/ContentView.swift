@@ -7,14 +7,23 @@
 
 import SwiftUI
 
+enum ActiveSheet: Identifiable {
+    case showDetailView,
+         showOptionMenu,
+         isImagePickerDisplay
+    
+    var id: String {
+        "hash"
+    }
+}
+
 struct ContentView: View {
     @EnvironmentObject var model: ContentModel
     
-    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    @State private var sourceType: UIImagePickerController.SourceType?
     @State private var selectedImage: UIImage?
-    @State private var isImagePickerDisplay = false
+    @State private var activeSheet: ActiveSheet?
     
-    @State var showDetailView = false
     
     var body: some View {
         
@@ -27,7 +36,7 @@ struct ContentView: View {
                     VStack {
                         
                         Button {
-                            showDetailView = true
+                            activeSheet = .showDetailView
                         } label: {
                             ZStack {
                                 Rectangle()
@@ -48,6 +57,7 @@ struct ContentView: View {
                                             height: geo.size.height - 80,
                                             alignment: .bottomLeading
                                         )
+                                        .shadow(radius: 10)
                                         .font(.largeTitle)
                                         .bold()
                                         .foregroundColor(.white)
@@ -63,9 +73,13 @@ struct ContentView: View {
                             .cornerRadius(15)
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .sheet(isPresented: $showDetailView) {
-                            DogDetailView()
-                        }
+                        .sheet(item: $activeSheet, onDismiss: {
+                            model.setLoadingFalse()
+                        }, content: { item in
+                            if item == .showDetailView {
+                                DogDetailView()
+                            }
+                        })
                         
                     }
                     
@@ -86,8 +100,18 @@ struct ContentView: View {
             HStack(spacing: 30) {
                 
                 Button(action: {
+                    model.setLoadingTrue()
+                    activeSheet = .showOptionMenu
+                    
+                }, label: {
+                    Image(systemName: "ellipsis")
+                })
+                .disabled(model.loading)
+                
+                Button(action: {
+                    model.setLoadingTrue()
                     self.sourceType = .camera
-                    self.isImagePickerDisplay.toggle()
+                    activeSheet = .isImagePickerDisplay
                     
                 }, label: {
                     Image(systemName: "camera")
@@ -95,8 +119,9 @@ struct ContentView: View {
                 .disabled(model.loading)
                 
                 Button(action: {
+                    model.setLoadingTrue()
                     self.sourceType = .photoLibrary
-                    self.isImagePickerDisplay.toggle()
+                    activeSheet = .isImagePickerDisplay
                 }, label: {
                     Image(systemName: "photo")
                 })
@@ -105,6 +130,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button(action: {
+                    model.setLoadingTrue()
                     model.getDogData()
                 }, label: {
                     Text("Random")
@@ -115,13 +141,23 @@ struct ContentView: View {
             .padding(.horizontal, 30)
             
         }
-        .sheet(isPresented: self.$isImagePickerDisplay, onDismiss: {
-            if selectedImage != nil {
-                ContentModel(image: selectedImage!.pngData())
+        .sheet(item: $activeSheet, onDismiss: {
+            model.setLoadingFalse()
+        }, content: { item in
+            switch item {
+            case .showDetailView:
+                DogDetailView()
+            case .showOptionMenu:
+                OptionsMenu()
+            case .isImagePickerDisplay:
+                ImagePickerView(selectedImage: self.$selectedImage, sourceType: self.$sourceType)
+                    .onDisappear {
+                        if selectedImage != nil {
+                            self.model.newCameraImage(image: selectedImage!.pngData())
+                        }
+                    }
             }
-        }) {
-            ImagePickerView(selectedImage: self.$selectedImage, sourceType: self.sourceType)
-        }
+        })
         
     }
     
