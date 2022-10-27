@@ -35,11 +35,11 @@ struct ContentView: View {
                                 
                                 Image(uiImage: UIImage(data: imageModel.dog.imageData ?? Data()) ?? UIImage())
                                     .resizable()
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                    .frame(alignment: .leading)
                                     .scaledToFill()
                                     .clipped()
                                 
-                                Text(imageModel.dog.identifier)
+                                Text(imageModel.dog.identifier ?? "")
                                     .frame(
                                         width: geo.size.width - 40,
                                         height: geo.size.height - 80,
@@ -48,8 +48,7 @@ struct ContentView: View {
                                     .font(.largeTitle)
                                     .bold()
                                     .foregroundColor(.white)
-                                    .padding(.leading, 20)
-                                    .padding(.bottom, 20)
+                                    .padding([.leading, .bottom], 20)
                                 
                             }
                             .frame(
@@ -61,7 +60,7 @@ struct ContentView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .sheet(isPresented: $showDetailView) {
-                            ImageDetailView(model: imageModel)
+                            DogDetailView(model: imageModel)
                         }
                         
                     }

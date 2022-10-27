@@ -14,11 +14,12 @@
 		4889534F29073FEF003FD054 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534E29073FEF003FD054 /* Constants.swift */; };
 		488953512907404F003FD054 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953502907404F003FD054 /* Dog.swift */; };
 		4889535329074168003FD054 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535229074168003FD054 /* DogModel.swift */; };
-		48895355290745B1003FD054 /* DogRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895354290745B1003FD054 /* DogRowView.swift */; };
-		48895357290745DB003FD054 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895356290745DB003FD054 /* ProgressBarView.swift */; };
 		4889535D29084930003FD054 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535C29084930003FD054 /* ImagePickerView.swift */; };
 		4889535F290849D0003FD054 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535E290849D0003FD054 /* Coordinator.swift */; };
 		4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4889536529087077003FD054 /* MobileNetV2.mlmodel */; };
+		4889536929088631003FD054 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4889536829088631003FD054 /* WikipediaKit */; };
+		4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889536C29088ED6003FD054 /* HTMLStringView.swift */; };
+		488953712909E532003FD054 /* DogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953702909E532003FD054 /* DogDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +31,11 @@
 		4889534E29073FEF003FD054 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		488953502907404F003FD054 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		4889535229074168003FD054 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
-		48895354290745B1003FD054 /* DogRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogRowView.swift; sourceTree = "<group>"; };
-		48895356290745DB003FD054 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		4889535C29084930003FD054 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		4889535E290849D0003FD054 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4889536529087077003FD054 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNetV2.mlmodel; sourceTree = "<group>"; };
+		4889536C29088ED6003FD054 /* HTMLStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLStringView.swift; sourceTree = "<group>"; };
+		488953702909E532003FD054 /* DogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4889536929088631003FD054 /* WikipediaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,8 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				4889534029073F6E003FD054 /* ContentView.swift */,
-				48895354290745B1003FD054 /* DogRowView.swift */,
-				48895356290745DB003FD054 /* ProgressBarView.swift */,
+				488953702909E532003FD054 /* DogDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				4889536529087077003FD054 /* MobileNetV2.mlmodel */,
+				4889536C29088ED6003FD054 /* HTMLStringView.swift */,
 				4889534E29073FEF003FD054 /* Constants.swift */,
 			);
 			path = Helper;
@@ -147,6 +149,9 @@
 			dependencies = (
 			);
 			name = DogAnalyzer;
+			packageProductDependencies = (
+				4889536829088631003FD054 /* WikipediaKit */,
+			);
 			productName = DogAnalyzer;
 			productReference = 4889533B29073F6E003FD054 /* DogAnalyzer.app */;
 			productType = "com.apple.product-type.application";
@@ -175,6 +180,9 @@
 				Base,
 			);
 			mainGroup = 4889533229073F6E003FD054;
+			packageReferences = (
+				4889536729088631003FD054 /* XCRemoteSwiftPackageReference "WikipediaKit" */,
+			);
 			productRefGroup = 4889533C29073F6E003FD054 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -203,12 +211,12 @@
 			files = (
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
+				4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */,
+				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				488953512907404F003FD054 /* Dog.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,
 				4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */,
-				48895355290745B1003FD054 /* DogRowView.swift in Sources */,
-				48895357290745DB003FD054 /* ProgressBarView.swift in Sources */,
 				4889535329074168003FD054 /* DogModel.swift in Sources */,
 				4889534F29073FEF003FD054 /* Constants.swift in Sources */,
 			);
@@ -413,6 +421,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4889536729088631003FD054 /* XCRemoteSwiftPackageReference "WikipediaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Raureif/WikipediaKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4889536829088631003FD054 /* WikipediaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4889536729088631003FD054 /* XCRemoteSwiftPackageReference "WikipediaKit" */;
+			productName = WikipediaKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4889533329073F6E003FD054 /* Project object */;
 }

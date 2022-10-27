@@ -5,34 +5,33 @@
 //  Created by Veer Singh on 10/24/22.
 //
 
-import Foundation
 import CoreML
 import Vision
-
-struct Result : Identifiable {
-    var imageLabel: String
-    var confidence: Double
-    var id = UUID()
-}
+import WikipediaKit
 
 class Dog: ObservableObject {
     var imageUrl: String
-    
+    @Published var identifier: String?
+    @Published var confidence: Double?
     @Published var imageData: Data?
-    @Published var results: [Result]
+    @Published var dogInfo: String?
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     
     init() {
-        self.imageUrl = ""
+        self.identifier = nil
+        self.confidence = nil
         self.imageData = nil
-        self.results = []
+        self.dogInfo = nil
+        self.imageUrl = ""
     }
     
     init(image: Data?) {
-        self.imageUrl = ""
         self.imageData = image
-        self.results = []
+        self.identifier = nil
+        self.confidence = nil
+        self.dogInfo = nil
+        self.imageUrl = ""
         
         self.classifyAnimal(image: image)
     }
@@ -42,10 +41,11 @@ class Dog: ObservableObject {
         guard let imageUrl = json["url"] as? String else {
             return nil
         }
-        
-        self.imageUrl = imageUrl
+        self.identifier = nil
+        self.confidence = nil
         self.imageData = nil
-        self.results = []
+        self.dogInfo = nil
+        self.imageUrl = imageUrl
         
         getImage()
     }
@@ -64,9 +64,9 @@ class Dog: ObservableObject {
                 self.imageData = data
                 self.classifyAnimal(image: self.imageData)
             }
-
+            
         }
-
+        
         dataTask.resume()
     }
     
@@ -84,16 +84,11 @@ class Dog: ObservableObject {
                 return
             }
             
-            self.results.removeAll()
-            // Add top 4 results
-            for i in (0...3) {
-                
-                var identifier = results[i].identifier
-                identifier = identifier.prefix(1).capitalized + identifier.dropFirst()
-                self.results.append(Result(imageLabel: identifier, confidence: Double(results[i].confidence)))
-                
-            }
-
+            self.identifier = results[0].identifier
+            self.confidence = Double(results[0].confidence)
+            
+            self.identifier = self.identifier!.prefix(1).capitalized + self.identifier!.dropFirst()
+            
         }
         
         // Execute request
@@ -101,6 +96,76 @@ class Dog: ObservableObject {
             try handler.perform([request])
         } catch {
             print("Invalid image")
+        }
+        
+        self.wikiInfo(dogBreed: self.identifier!)
+        
+    }
+    
+    func wikiInfo(dogBreed: String) {
+        var htmlText = " "
+        
+        let language = WikipediaLanguage("en")
+        
+        // Remove words after commma, and delete and occurances of the word 'dog'
+        let prefix = dogBreed.prefix(while: { $0 != "," }).replacingOccurrences(of: " dog", with: "")
+        
+        let _ = Wikipedia.shared.requestArticle(language: language, title: prefix, imageWidth: 10) { result in
+            switch result {
+            case .success(let article):
+                self.identifier = prefix
+                
+                htmlText = article.displayText.slice(from: "<p>", to: "</p>")!
+                htmlText = (htmlText.components(separatedBy: CharacterSet.decimalDigits)).joined(separator: "")
+                htmlText = htmlText.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
+                
+                self.dogInfo = htmlText.html2String
+                
+                if htmlText.contains(" refer to:") || htmlText.contains(" refers to:"){
+                    
+                    print("Unable to find Wiki response, retring with dog suffix")
+                    let _ = Wikipedia.shared.requestArticle(language: language, title: String("\(prefix) (dog)"), imageWidth: 10) { result in
+                        switch result {
+                        case .success(let article):
+                            htmlText = article.displayText.slice(from: "<p>", to: "</p>")!
+                                .components(separatedBy: CharacterSet.decimalDigits)
+                                .joined(separator: "").replacingOccurrences(of: "[", with: "")
+                                .replacingOccurrences(of: "]", with: "")
+                            
+                            self.identifier = "\(prefix) (dog)"
+                            self.dogInfo = htmlText.html2String
+                        case .failure(_):
+                            print("Error! No Wiki response found for: \(self.identifier ?? " ")")
+                            self.dogInfo = nil
+                        }
+                    }
+                }
+            case .failure(_):
+                print("Unable to find Wiki response for \(prefix), retrying with last option")
+                
+                // Get last word
+                if let index = dogBreed.lastIndex(of: ",") {
+                    let lastOption = String(dogBreed.suffix(from: index).dropFirst())
+                    
+                    let _ = Wikipedia.shared.requestArticle(language: language, title: String(lastOption), imageWidth: 10) { result in
+                        switch result {
+                        case .success(let article):
+                            htmlText = article.displayText.slice(from: "<p>", to: "</p>")!
+                                .components(separatedBy: CharacterSet.decimalDigits)
+                                .joined(separator: "").replacingOccurrences(of: "[", with: "")
+                                .replacingOccurrences(of: "]", with: "")
+                            
+                            self.identifier = lastOption
+                            self.dogInfo = htmlText.html2String
+                            
+                        case .failure(_):
+                            print("Error! No Wiki response found for: \(self.identifier ?? " ")")
+                            self.dogInfo = nil
+                        }
+                    }
+                
+                }
+            }
         }
         
     }

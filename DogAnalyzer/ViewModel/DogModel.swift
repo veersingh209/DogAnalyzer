@@ -13,7 +13,7 @@ class DogModel: ObservableObject {
     
     func getDogs() {
         
-        let url = URL(string: dogUrl)
+        let url = URL(string: dogURL)
         
         guard url != nil else {
             print("ERROR! Unable to create URL object")
@@ -31,7 +31,11 @@ class DogModel: ObservableObject {
                         
                         if let dog = Dog(json: item) {
                             DispatchQueue.main.async {
-                                while dog.results.isEmpty {}
+                                var counter = 0
+                                while dog.identifier == nil {
+                                    print("LOADING \(counter)")
+                                    counter += 1
+                                }
                                 self.dog = dog
                             }
                         }

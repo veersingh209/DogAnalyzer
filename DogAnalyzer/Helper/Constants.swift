@@ -7,4 +7,5 @@
 
 import Foundation
 
-let dogUrl = "https://api.thedogapi.com/v1/images/search"
+let dogURL = "https://api.thedogapi.com/v1/images/search/"
+let wikiURL = "https://en.wikipedia.org/wiki/"
