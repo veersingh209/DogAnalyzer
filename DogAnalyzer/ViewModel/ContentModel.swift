@@ -9,24 +9,16 @@ import CoreML
 import Vision
 import WikipediaKit
 
-enum SourceImageSelection: Identifiable {
-    case allSources,
-         dogCEO,
-         dopAPI
-    
-    var id: String {
-        "hash"
-    }
+enum SourceImageSelection: Int {
+    case allSources = 1,
+         dogCEO = 2,
+         dopAPI = 3
 }
 
-enum AppColorSelection: Identifiable {
-    case system,
-         dark,
-         light
-    
-    var id: String {
-        "hash"
-    }
+enum AppColorSelection: Int {
+    case system = 1,
+         dark = 2,
+         light = 3
 }
 
 class ContentModel: ObservableObject {
@@ -39,12 +31,40 @@ class ContentModel: ObservableObject {
     @Published var dogInfo: String?
     @Published var loading: Bool
     
-    @Published var colorSelection: AppColorSelection?
-    @Published var imageSelection: SourceImageSelection?
+    @Published var colorSelection: AppColorSelection = .system
+    @Published var imageSelection: SourceImageSelection? = .allSources
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     
+    let userDefaults = UserDefaults.standard
+    
     init() {
+        // Retrive Color selection from memory
+        let colorChoice = userDefaults.integer(forKey: "colorSelection")
+        switch colorChoice {
+        case 1:
+            self.colorSelection = .system
+        case 2:
+            self.colorSelection = .dark
+        case 3:
+            self.colorSelection = .light
+        default:
+            self.colorSelection = .system
+        }
+        // Retrive Source selection from memory
+        let sourceChoice = userDefaults.integer(forKey: "sourceSelection")
+        
+        switch sourceChoice {
+        case 1:
+            self.imageSelection = .allSources
+        case 2:
+            self.imageSelection = .dogCEO
+        case 3:
+            self.imageSelection = .dopAPI
+        default:
+            self.imageSelection = .allSources
+        }
+        
         self.imageData = nil
         self.identifier = nil
         self.confidence = nil

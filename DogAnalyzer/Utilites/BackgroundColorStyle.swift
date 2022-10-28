@@ -21,9 +21,6 @@ struct BackgroundColorStyle: ViewModifier {
         case .light:
             return content
                 .background(Color("systemListBackgroundColorLight"))
-        case .none:
-            return content
-                .background(Color("AdaptiveBackground"))
         }
     }
 }

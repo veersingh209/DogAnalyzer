@@ -22,9 +22,6 @@ struct ListCellColorStyle: ViewModifier {
         case .light:
             return content
                 .listRowBackground(Color.white)
-        case .none:
-            return content
-                .listRowBackground(Color("AdaptiveListColor"))
         }
     }
 }

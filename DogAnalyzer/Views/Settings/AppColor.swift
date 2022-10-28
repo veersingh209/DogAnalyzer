@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppColor: View {
     @EnvironmentObject var model: ContentModel
-    
+
     var body: some View {
         
             List {
@@ -17,6 +17,8 @@ struct AppColor: View {
                     
                     Button {
                         model.setNewAppColor(color: .system)
+                        // Save user selection into memory
+                        UserDefaults.standard.set(AppColorSelection.system.rawValue, forKey: "colorSelection")
                     } label: {
                         HStack {
                             Text("System")
@@ -30,6 +32,7 @@ struct AppColor: View {
                     
                     Button {
                         model.setNewAppColor(color: .dark)
+                        UserDefaults.standard.set(AppColorSelection.dark.rawValue, forKey: "colorSelection")
                     } label: {
                         HStack {
                             Text("Dark")
@@ -43,6 +46,7 @@ struct AppColor: View {
                     
                     Button {
                         model.setNewAppColor(color: .light)
+                        UserDefaults.standard.set(AppColorSelection.light.rawValue, forKey: "colorSelection")
                     } label: {
                         HStack {
                             Text("Light")

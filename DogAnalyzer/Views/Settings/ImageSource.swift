@@ -17,6 +17,8 @@ struct ImageSource: View {
                 
                 Button {
                     model.imageSelection = .allSources
+                    // Save user selection into memory
+                    UserDefaults.standard.set(SourceImageSelection.allSources.rawValue, forKey: "sourceSelection")
                 } label: {
                     HStack {
                         Text("All Sources")
@@ -34,6 +36,7 @@ struct ImageSource: View {
             Section {
                 Button {
                     model.imageSelection = .dogCEO
+                    UserDefaults.standard.set(SourceImageSelection.dogCEO.rawValue, forKey: "sourceSelection")
                 } label: {
                     HStack {
                         Text("DogCEO")
@@ -53,6 +56,7 @@ struct ImageSource: View {
             Section {
                 Button {
                     model.imageSelection = .dopAPI
+                    UserDefaults.standard.set(SourceImageSelection.dopAPI.rawValue, forKey: "sourceSelection")
                 } label: {
                     HStack {
                         Text("TheDogAPI")

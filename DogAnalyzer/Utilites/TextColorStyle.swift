@@ -21,9 +21,6 @@ struct TextColorStyle: ViewModifier {
         case .light:
             return content
                 .foregroundColor(Color("systemTextColorLight"))
-        case .none:
-            return content
-                .foregroundColor(Color("AdaptiveText"))
         }
     }
     
