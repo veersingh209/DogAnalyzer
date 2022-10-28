@@ -45,6 +45,7 @@ struct DogDetailView: View {
                             }
                         } label: {
                             Image(systemName: "link")
+                                .foregroundColor(Color.blue)
                         }
                         .alert("Unable to open link", isPresented: $showingAlert) {
                             Button("OK", role: .cancel) { }
@@ -63,5 +64,7 @@ struct DogDetailView: View {
             }
             
         }
+        .modifier(TextColorStyle())
+        .modifier(BackgroundColorStyle())
     }
 }

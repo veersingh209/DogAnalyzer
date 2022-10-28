@@ -40,7 +40,6 @@ struct ContentView: View {
                         } label: {
                             ZStack {
                                 Rectangle()
-                                    .foregroundColor(Color("AdaptiveBackground"))
                                 
                                 if model.loading {
                                     ProgressView()
@@ -60,7 +59,6 @@ struct ContentView: View {
                                         .shadow(radius: 10)
                                         .font(.largeTitle)
                                         .bold()
-                                        .foregroundColor(.white)
                                         .padding([.leading, .bottom], 20)
                                 }
                                 
@@ -141,6 +139,8 @@ struct ContentView: View {
             .padding(.horizontal, 30)
             
         }
+        .modifier(TextColorStyle())
+        .modifier(BackgroundColorStyle())
         .sheet(item: $activeSheet, onDismiss: {
             model.setLoadingFalse()
         }, content: { item in
@@ -160,5 +160,4 @@ struct ContentView: View {
         })
         
     }
-    
 }

@@ -19,9 +19,8 @@ struct SettingsMainMenu: View {
                         AppColor()
                     } label: {
                         Text("App Color")
-                            .foregroundColor(Color("AdaptiveText"))
                     }
-                    
+                    .modifier(ListCellColorStyle())
                 } header: {
                     Text("Theme")
                 } footer: {
@@ -33,10 +32,8 @@ struct SettingsMainMenu: View {
                         ImageSource()
                     } label: {
                         Text("Dog Image Source")
-                            .foregroundColor(Color("AdaptiveText"))
-                        
                     }
-                    
+                    .modifier(ListCellColorStyle())
                 } header: {
                     Text("Source")
                 } footer: {
@@ -44,7 +41,15 @@ struct SettingsMainMenu: View {
                 }
                 
             }
-            .navigationTitle("App Settings")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("App Settings")
+                        .font(.headline)
+                }
+            }
+            .scrollContentBackground(.hidden)
+            .modifier(TextColorStyle())
+            .modifier(BackgroundColorStyle())
         }
         
     }

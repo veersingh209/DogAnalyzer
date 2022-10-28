@@ -67,6 +67,12 @@ class ContentModel: ObservableObject {
         }
     }
     
+    func setNewAppColor(color: AppColorSelection) {
+        DispatchQueue.main.async {
+            self.colorSelection = color
+        }
+    }
+    
     func setLoadingTrue() {
         DispatchQueue.main.async {
             self.loading = true

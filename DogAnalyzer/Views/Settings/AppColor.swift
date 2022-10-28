@@ -12,54 +12,62 @@ struct AppColor: View {
     
     var body: some View {
         
-        List {
-            Section {
-                
-                Button {
-                    model.colorSelection = .system
-                } label: {
-                    HStack {
-                        Text("System")
-                            .foregroundColor(Color("AdaptiveText"))
-                        Spacer()
-                        if model.colorSelection == .system {
-                            Image(systemName: "checkmark")
+            List {
+                Section {
+                    
+                    Button {
+                        model.setNewAppColor(color: .system)
+                    } label: {
+                        HStack {
+                            Text("System")
+                            Spacer()
+                            if model.colorSelection == .system {
+                                Image(systemName: "checkmark")
+                            }
                         }
                     }
-                }
-                
-                Button {
-                    model.colorSelection = .dark
-                } label: {
-                    HStack {
-                        Text("Dark")
-                            .foregroundColor(Color("AdaptiveText"))
-                        Spacer()
-                        if model.colorSelection == .dark {
-                            Image(systemName: "checkmark")
+                    .modifier(ListCellColorStyle())
+                    
+                    Button {
+                        model.setNewAppColor(color: .dark)
+                    } label: {
+                        HStack {
+                            Text("Dark")
+                            Spacer()
+                            if model.colorSelection == .dark {
+                                Image(systemName: "checkmark")
+                            }
                         }
                     }
-                }
-                
-                Button {
-                    model.colorSelection = .light
-                } label: {
-                    HStack {
-                        Text("Light")
-                            .foregroundColor(Color("AdaptiveText"))
-                        Spacer()
-                        if model.colorSelection == .light {
-                            Image(systemName: "checkmark")
+                    .modifier(ListCellColorStyle())
+                    
+                    Button {
+                        model.setNewAppColor(color: .light)
+                    } label: {
+                        HStack {
+                            Text("Light")
+                            Spacer()
+                            if model.colorSelection == .light {
+                                Image(systemName: "checkmark")
+                            }
                         }
                     }
+                    .modifier(ListCellColorStyle())
+                    
+                } footer: {
+                    Text("Change the app color scheme. Defaults to match device settings")
                 }
                 
-            } footer: {
-                Text("Change the app color scheme. Defaults to match device settings")
             }
-            
-        }
-        .navigationTitle("App Color")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("App Color")
+                        .font(.headline)
+                }
+            }
+            .scrollContentBackground(.hidden)
+            .modifier(TextColorStyle())
+            .modifier(BackgroundColorStyle())
         
     }
 }
