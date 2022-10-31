@@ -9,16 +9,21 @@ import Foundation
 
 class Dog: Decodable, Identifiable, ObservableObject {
     
-//    @Published var imageData: Data?
-    
     var id:UUID?
-    var message: String?
     var status: String?
     
-    init(id: UUID = UUID(), message: String? = nil, status: String? = nil) {
+    // TheDogCEO photo source
+    var message: String?
+    
+    // TheDogAPI photo source
+    var url: String?
+    
+    
+    init(id: UUID = UUID(), status: String? = nil, message: String? = nil, url: String? = nil) {
         self.id = id
-        self.message = message
         self.status = status
+        self.message = message
+        self.url = url
     }
 
 }

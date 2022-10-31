@@ -10,9 +10,8 @@ import Vision
 import WikipediaKit
 
 enum SourceImageSelection: Int {
-    case allSources = 1,
-         dogCEO = 2,
-         dopAPI = 3
+    case dogCEO = 1,
+         dopAPI = 2
 }
 
 enum AppColorSelection: Int {
@@ -24,6 +23,7 @@ enum AppColorSelection: Int {
 class ContentModel: ObservableObject {
     
     @Published var dog = Dog()
+    @Published var theDog = TheDog()
     @Published var imageData: Data?
     
     @Published var identifier: String?
@@ -32,7 +32,7 @@ class ContentModel: ObservableObject {
     @Published var loading: Bool
     
     @Published var colorSelection: AppColorSelection = .system
-    @Published var imageSelection: SourceImageSelection? = .allSources
+    @Published var imageSelection: SourceImageSelection? = .dogCEO
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     
@@ -51,18 +51,17 @@ class ContentModel: ObservableObject {
         default:
             self.colorSelection = .system
         }
+        
         // Retrive Source selection from memory
         let sourceChoice = userDefaults.integer(forKey: "sourceSelection")
         
         switch sourceChoice {
         case 1:
-            self.imageSelection = .allSources
-        case 2:
             self.imageSelection = .dogCEO
-        case 3:
+        case 2:
             self.imageSelection = .dopAPI
         default:
-            self.imageSelection = .allSources
+            self.imageSelection = .dogCEO
         }
         
         self.imageData = nil
@@ -87,6 +86,12 @@ class ContentModel: ObservableObject {
         }
     }
     
+    func setImageSourc(source: SourceImageSelection) {
+        DispatchQueue.main.async {
+            self.imageSelection = source
+        }
+    }
+    
     func setNewAppColor(color: AppColorSelection) {
         DispatchQueue.main.async {
             self.colorSelection = color
@@ -107,7 +112,18 @@ class ContentModel: ObservableObject {
     
     func getDogData() {
         self.loading = true
-        if let url = URL(string: dogCeoURL) {
+        var selectedSourceURL = ""
+        
+        switch self.imageSelection {
+        case .dogCEO:
+            selectedSourceURL = dogCeoURL
+        case .dopAPI:
+            selectedSourceURL = dogURL
+        default:
+            selectedSourceURL = dogCeoURL
+        }
+        
+        if let url = URL(string: selectedSourceURL) {
             
             var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
             request.httpMethod = "GET"
@@ -115,21 +131,51 @@ class ContentModel: ObservableObject {
             let session = URLSession.shared
             
             let dataTask = session.dataTask(with: request) { data, respone, error in
+                let decoder = JSONDecoder()
                 
-                if error == nil {
+                if error == nil && data != nil {
                     
                     do {
                         
-                        let decoder = JSONDecoder()
-                        let results = try decoder.decode(Dog.self, from: data!)
-                        
-                        if results.status == successMessage {
-                            DispatchQueue.main.async {
-                                results.id = UUID()
-                                self.getImageData(imageUrl: results.message)
-                                self.dog = results
+                        switch self.imageSelection {
+                        case .dogCEO:
+                            
+                            let results = try decoder.decode(Dog.self, from: data!)
+                            
+                            if results.status == successMessage {
+                                DispatchQueue.main.async {
+                                    results.id = UUID()
+                                    self.getImageData(imageUrl: results.message)
+                                    self.dog = results
+                                }
                             }
+                            
+                        case .dopAPI:
+                            self.setLoadingFalse()
+                            
+                            let results = try decoder.decode([TheDog].self, from: data!)
+                            if !results.isEmpty {
+                                let item = results[0]
+                                DispatchQueue.main.async {
+                                    self.getImageData(imageUrl: item.url)
+                                    self.theDog = item
+                                }
+                            }
+                            
+                            // default case revert to DogCEO
+                        case .none:
+                            let results = try decoder.decode(Dog.self, from: data!)
+                            
+                            if results.status == successMessage {
+                                DispatchQueue.main.async {
+                                    results.id = UUID()
+                                    self.getImageData(imageUrl: results.message)
+                                    self.dog = results
+                                }
+                            }
+                            
                         }
+                        
                         
                     } catch {
                         print("ERROR! Unable to parse JSON Data: \(error)")
@@ -145,13 +191,11 @@ class ContentModel: ObservableObject {
     }
     
     func getImageData(imageUrl: String?) {
-        
         if let url = URL(string: imageUrl!) {
-            
             let session = URLSession.shared
             let dataTask = session.dataTask(with: url) { data, response, error in
+                print(error)
                 if error == nil {
-                    
                     DispatchQueue.main.async {
                         self.imageData = data!
                         self.classifyAnimal(image: self.imageData)
@@ -167,7 +211,6 @@ class ContentModel: ObservableObject {
     }
     
     func classifyAnimal(image: Data?) {
-        
         let model = try! VNCoreMLModel(for: modelFile.model)
         let handler = VNImageRequestHandler(data: image!)
         
