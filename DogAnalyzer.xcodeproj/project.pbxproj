@@ -13,20 +13,19 @@
 		480E40A1290C6ECD0097BEB5 /* BackgroundColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E40A0290C6ECD0097BEB5 /* BackgroundColorStyle.swift */; };
 		480E40A3290C73EA0097BEB5 /* TextColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E40A2290C73EA0097BEB5 /* TextColorStyle.swift */; };
 		485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485461CB290C8D9E00590D24 /* ListCellColorStyle.swift */; };
-		485461D4290CB6E600590D24 /* TheDog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485461D3290CB6E600590D24 /* TheDog.swift */; };
+		485461D4290CB6E600590D24 /* TheDogAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485461D3290CB6E600590D24 /* TheDogAPI.swift */; };
 		4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889533E29073F6E003FD054 /* DogAnalyzerApp.swift */; };
 		4889534129073F6E003FD054 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534029073F6E003FD054 /* ContentView.swift */; };
 		4889534329073F70003FD054 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4889534229073F70003FD054 /* Assets.xcassets */; };
 		4889534629073F70003FD054 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4889534529073F70003FD054 /* Preview Assets.xcassets */; };
 		4889534F29073FEF003FD054 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889534E29073FEF003FD054 /* Constants.swift */; };
-		488953512907404F003FD054 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953502907404F003FD054 /* DogModel.swift */; };
 		4889535D29084930003FD054 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535C29084930003FD054 /* ImagePickerView.swift */; };
 		4889535F290849D0003FD054 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889535E290849D0003FD054 /* Coordinator.swift */; };
 		4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4889536529087077003FD054 /* MobileNetV2.mlmodel */; };
 		4889536929088631003FD054 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4889536829088631003FD054 /* WikipediaKit */; };
 		4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889536C29088ED6003FD054 /* HTMLStringView.swift */; };
 		488953712909E532003FD054 /* DogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953702909E532003FD054 /* DogDetailView.swift */; };
-		48895376290AF933003FD054 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895375290AF933003FD054 /* Dog.swift */; };
+		48895376290AF933003FD054 /* DogCEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895375290AF933003FD054 /* DogCEO.swift */; };
 		4889537B290B014F003FD054 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889537A290B014F003FD054 /* ContentModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,20 +36,19 @@
 		480E40A0290C6ECD0097BEB5 /* BackgroundColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorStyle.swift; sourceTree = "<group>"; };
 		480E40A2290C73EA0097BEB5 /* TextColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyle.swift; sourceTree = "<group>"; };
 		485461CB290C8D9E00590D24 /* ListCellColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellColorStyle.swift; sourceTree = "<group>"; };
-		485461D3290CB6E600590D24 /* TheDog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDog.swift; sourceTree = "<group>"; };
+		485461D3290CB6E600590D24 /* TheDogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDogAPI.swift; sourceTree = "<group>"; };
 		4889533B29073F6E003FD054 /* DogAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4889533E29073F6E003FD054 /* DogAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogAnalyzerApp.swift; sourceTree = "<group>"; };
 		4889534029073F6E003FD054 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4889534229073F70003FD054 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4889534529073F70003FD054 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4889534E29073FEF003FD054 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		488953502907404F003FD054 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
 		4889535C29084930003FD054 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		4889535E290849D0003FD054 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4889536529087077003FD054 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNetV2.mlmodel; sourceTree = "<group>"; };
 		4889536C29088ED6003FD054 /* HTMLStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLStringView.swift; sourceTree = "<group>"; };
 		488953702909E532003FD054 /* DogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailView.swift; sourceTree = "<group>"; };
-		48895375290AF933003FD054 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		48895375290AF933003FD054 /* DogCEO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogCEO.swift; sourceTree = "<group>"; };
 		4889537A290B014F003FD054 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,7 +164,6 @@
 		48895373290AF8E5003FD054 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				488953502907404F003FD054 /* DogModel.swift */,
 				4889537A290B014F003FD054 /* ContentModel.swift */,
 			);
 			path = ViewModel;
@@ -175,8 +172,8 @@
 		48895374290AF91D003FD054 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				48895375290AF933003FD054 /* Dog.swift */,
-				485461D3290CB6E600590D24 /* TheDog.swift */,
+				48895375290AF933003FD054 /* DogCEO.swift */,
+				485461D3290CB6E600590D24 /* TheDogAPI.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -259,7 +256,7 @@
 			files = (
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
 				480E409F290B2EEA0097BEB5 /* ImageSource.swift in Sources */,
-				485461D4290CB6E600590D24 /* TheDog.swift in Sources */,
+				485461D4290CB6E600590D24 /* TheDogAPI.swift in Sources */,
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */,
 				4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */,
@@ -268,9 +265,8 @@
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				4889537B290B014F003FD054 /* ContentModel.swift in Sources */,
-				48895376290AF933003FD054 /* Dog.swift in Sources */,
+				48895376290AF933003FD054 /* DogCEO.swift in Sources */,
 				480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */,
-				488953512907404F003FD054 /* DogModel.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,
 				4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */,
 				480E40A3290C73EA0097BEB5 /* TextColorStyle.swift in Sources */,

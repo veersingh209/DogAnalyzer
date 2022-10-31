@@ -1,5 +1,5 @@
 //
-//  TheDog.swift
+//  TheDogAPI.swift
 //  DogAnalyzer
 //
 //  Created by Veer Singh on 10/28/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TheDog: Codable, Identifiable, ObservableObject {
+class TheDogAPI: Codable, Identifiable, ObservableObject {
     
     var id:String?
     var url: String?

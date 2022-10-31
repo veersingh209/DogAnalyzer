@@ -43,6 +43,7 @@ struct ContentView: View {
                                 
                                 if model.loading {
                                     ProgressView()
+ //                                       .progressViewStyle(CircularProgressViewStyle(tint: Color.pink))
                                 } else {
                                     Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                                         .resizable()
@@ -91,7 +92,6 @@ struct ContentView: View {
                     y: 5
                 )
             }
-            .onAppear(perform: model.getDogData)
             .opacity(model.imageData == nil ? 0 : 1)
             
             // Buttons

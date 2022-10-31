@@ -22,9 +22,11 @@ enum AppColorSelection: Int {
 
 class ContentModel: ObservableObject {
     
-    @Published var dog = Dog()
-    @Published var theDog = TheDog()
+   // @Published var dog = DogCEO()
+  //  @Published var theDog = TheDogAPI()
+    
     @Published var imageData: Data?
+    @Published var similarResultsImageData = [Data?]()
     
     @Published var identifier: String?
     @Published var confidence: Double?
@@ -137,42 +139,31 @@ class ContentModel: ObservableObject {
                     
                     do {
                         
+                        // Get data based on user selected source
                         switch self.imageSelection {
                         case .dogCEO:
                             
-                            let results = try decoder.decode(Dog.self, from: data!)
+                            let results = try decoder.decode(DogCEO.self, from: data!)
                             
                             if results.status == successMessage {
                                 DispatchQueue.main.async {
                                     results.id = UUID()
                                     self.getImageData(imageUrl: results.message)
-                                    self.dog = results
                                 }
                             }
                             
                         case .dopAPI:
-                            self.setLoadingFalse()
                             
-                            let results = try decoder.decode([TheDog].self, from: data!)
+                            let results = try decoder.decode([TheDogAPI].self, from: data!)
                             if !results.isEmpty {
                                 let item = results[0]
                                 DispatchQueue.main.async {
                                     self.getImageData(imageUrl: item.url)
-                                    self.theDog = item
                                 }
                             }
                             
-                            // default case revert to DogCEO
                         case .none:
-                            let results = try decoder.decode(Dog.self, from: data!)
-                            
-                            if results.status == successMessage {
-                                DispatchQueue.main.async {
-                                    results.id = UUID()
-                                    self.getImageData(imageUrl: results.message)
-                                    self.dog = results
-                                }
-                            }
+                            break
                             
                         }
                         
@@ -194,7 +185,6 @@ class ContentModel: ObservableObject {
         if let url = URL(string: imageUrl!) {
             let session = URLSession.shared
             let dataTask = session.dataTask(with: url) { data, response, error in
-                print(error)
                 if error == nil {
                     DispatchQueue.main.async {
                         self.imageData = data!
@@ -229,7 +219,6 @@ class ContentModel: ObservableObject {
             
         }
         
-        // Execute request
         do {
             try handler.perform([request])
         } catch {
@@ -259,7 +248,8 @@ class ContentModel: ObservableObject {
                 
                 self.dogInfo = htmlText.html2String
                 
-                if htmlText.contains(" refer to:") || htmlText.contains(" refers to:"){
+                // Re-search if found following key terms. Mean wiki article response not actual
+                if htmlText.contains(" refer to:") || htmlText.contains(" refers to:") || htmlText.contains(" may be:"){
                     
                     print("Unable to find Wiki response, retring with dog suffix")
                     let _ = Wikipedia.shared.requestArticle(language: language, title: String("\(prefix) (dog)"), imageWidth: 10) { result in
@@ -281,7 +271,7 @@ class ContentModel: ObservableObject {
             case .failure(_):
                 print("Unable to find Wiki response for \(prefix), retrying with last option")
                 
-                // Get last word
+                // Get last word only
                 if let index = dogBreed.lastIndex(of: ",") {
                     let lastOption = String(dogBreed.suffix(from: index).dropFirst())
                     
@@ -305,6 +295,140 @@ class ContentModel: ObservableObject {
                 }
             }
         }
+        self.similarResultsImageData.removeAll()
+        self.matchBreed(breedGiven: self.identifier!)
+    }
+    
+    // Match breed to only in constants array
+    // Need to then use image results from DogCEO
+    func matchBreed(breedGiven: String) {
+        var highest = [Double]()
+        var highestIndex:Int?
+        
+        for breed in typeOfBreeds {
+            highest.append(breedGiven.levenshteinDistanceScore(to: breed, ignoreCase: true, trimWhiteSpacesAndNewLines: false))
+            
+        }
+        for (index, element) in highest.enumerated() {
+            if element == highest.max() {
+                highestIndex = index
+                print("Highest Number found: \(element)")
+            }
+            
+        }
+        print("Current image: \(breedGiven)")
+        print("Matching name: \(typeOfBreeds[highestIndex!])")
+        
+        // If matching breed found
+        if highest.max()! > 0.35 {
+            print("Match found! Finding addional dog images")
+            self.getImageSimilarResults(breed: typeOfBreeds[highestIndex!])
+        } else {
+            print("NO dog Match found! Using upsplash images")
+            print("UPLASH: backup in use ")
+            // Run 10 call to retrive 10 diffrent pictures
+            for _ in 0..<10 {
+                self.getSimillarImagesBackUp()
+            }
+        }
+
+        
+    }
+    
+    // Get additonal dog images based on breed using DogCEO
+    func getImageSimilarResults(breed: String) {
+        
+        // Use last word only
+        let size = breed.reversed().firstIndex(of: " ") ?? breed.count
+        let startWord = breed.index(breed.endIndex, offsetBy: -size)
+        let prefix = breed[startWord...]
+        let urlToUSE = "\(dogCeoBreedURLPrefix)\(prefix)\(dogCeoBreedURLSufix)"
+        
+        if let url = URL(string: urlToUSE) {
+            var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            
+            let session = URLSession.shared
+            
+            let dataTask = session.dataTask(with: request) { data, respone, error in
+                let decoder = JSONDecoder()
+                
+                if error == nil && data != nil {
+                    do {
+                        
+                        let results = try decoder.decode(DogCEOArray.self, from: data!)
+                        
+                        if results.status == successMessage {
+                            DispatchQueue.main.async {
+                                
+                                for result in results.message {
+                                    if let url = URL(string: result!) {
+                                        let session = URLSession.shared
+                                        let dataTask = session.dataTask(with: url) { data, response, error in
+                                            if error == nil {
+                                                DispatchQueue.main.async {
+                                                    self.similarResultsImageData.append(data!)
+                                                }
+
+                                            } else {
+                                                print("ERROR! Unable to retrieve image data: \(String(describing: error))")
+                                            }
+                                        }
+                                        dataTask.resume()
+                                    }
+                                }
+                    
+
+                            }
+                        } else {
+                            print("Reviced error response from API")
+                        }
+                        
+                        
+                    } catch {
+                        print("ERROR! Unable to parse JSON Data: \(error)")
+                    }
+                    
+                } else {
+                    print("ERROR! Unable to reach Dog API: \(String(describing: error))")
+                }
+            }
+            
+            dataTask.resume()
+        }
+        
+    }
+    
+    // Get simillar images from result
+    // Back incase no matching dog breed
+    // Main use case if user using camera image which doesn't contain a dog
+    func getSimillarImagesBackUp() {
+        print("UPLASH: Usuing Search Term: \(upslashImageFromSearchTerm)")
+        let searchTerm = self.identifier!.replacingOccurrences(of: " ", with: "%20")
+        print("UPLASH: Usuing url: \(upslashImageFromSearchTerm)\(searchTerm)")
+            if let url = URL(string: "\(upslashImageFromSearchTerm)\(searchTerm)") {
+                // disable cache to retrive diffrent images
+                let config = URLSessionConfiguration.default
+                config.requestCachePolicy = .reloadIgnoringLocalCacheData
+                config.urlCache = nil
+                
+                let session = URLSession.init(configuration: config)
+                let dataTask = session.dataTask(with: url) { data, response, error in
+                    if error == nil {
+                        
+                        DispatchQueue.main.async {
+                            self.similarResultsImageData.append(data!)
+                        }
+                        
+                    } else {
+                        print("ERROR! Unable to retrieve similar image data: \(String(describing: error))")
+                    }
+                }
+                dataTask.resume()
+            } else {
+                print("ERROR! Unable to use URL")
+            }
+
     }
     
 }
