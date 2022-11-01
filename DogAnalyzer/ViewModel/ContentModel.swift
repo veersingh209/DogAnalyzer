@@ -11,7 +11,7 @@ import WikipediaKit
 
 enum SourceImageSelection: Int {
     case dogCEO = 1,
-         dopAPI = 2
+         dogAPI = 2
 }
 
 enum AppColorSelection: Int {
@@ -29,14 +29,14 @@ class ContentModel: ObservableObject {
     @Published var dogInfo: String?
     @Published var loading: Bool
     
-    @Published var colorSelection: AppColorSelection = .system
+    @Published var colorSelection: AppColorSelection = .light
     @Published var imageSelection: SourceImageSelection? = .dogCEO
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     let userDefaults = UserDefaults.standard
     
     init() {
-        // Retrive Color selection from memory
+        // Retrieve Color selection from memory
         let colorChoice = userDefaults.integer(forKey: "colorSelection")
         switch colorChoice {
         case 1:
@@ -49,14 +49,14 @@ class ContentModel: ObservableObject {
             self.colorSelection = .system
         }
         
-        // Retrive Source selection from memory
+        // Retrieve Source selection from memory
         let sourceChoice = userDefaults.integer(forKey: "sourceSelection")
         
         switch sourceChoice {
         case 1:
             self.imageSelection = .dogCEO
         case 2:
-            self.imageSelection = .dopAPI
+            self.imageSelection = .dogAPI
         default:
             self.imageSelection = .dogCEO
         }
@@ -83,7 +83,7 @@ class ContentModel: ObservableObject {
         }
     }
     
-    func setImageSourc(source: SourceImageSelection) {
+    func setImageSource(source: SourceImageSelection) {
         DispatchQueue.main.async {
             self.imageSelection = source
         }
@@ -114,7 +114,7 @@ class ContentModel: ObservableObject {
         switch self.imageSelection {
         case .dogCEO:
             selectedSourceURL = dogCeoURL
-        case .dopAPI:
+        case .dogAPI:
             selectedSourceURL = dogURL
         default:
             selectedSourceURL = dogCeoURL
@@ -147,7 +147,7 @@ class ContentModel: ObservableObject {
                                 }
                             }
                             
-                        case .dopAPI:
+                        case .dogAPI:
                             
                             let results = try decoder.decode([TheDogAPI].self, from: data!)
                             if !results.isEmpty {
@@ -229,7 +229,7 @@ class ContentModel: ObservableObject {
         
         let language = WikipediaLanguage("en")
         
-        // Remove words after commma, and delete and occurances of the word 'dog'
+        // Remove words after comma, and delete and occurrences of the word 'dog'
         let prefix = dogBreed.prefix(while: { $0 != "," }).replacingOccurrences(of: " dog", with: "")
         
         let _ = Wikipedia.shared.requestArticle(language: language, title: prefix, imageWidth: 10) { result in
@@ -321,16 +321,16 @@ class ContentModel: ObservableObject {
         } else {
             print("NO dog Match found! Using upsplash images")
             print("UPLASH: backup in use ")
-            // Run 10 call to retrive 10 diffrent pictures
+            // Run 10 call to retrieve 10 different pictures
             for _ in 0..<10 {
-                self.getSimillarImagesBackUp()
+                self.getSimilarImagesBackUp()
             }
         }
 
         
     }
     
-    // Get additonal dog images based on breed using DogCEO
+    // Get additional dog images based on breed using DogCEO
     func getImageSimilarResults(breed: String) {
         
         // Use last word only
@@ -394,10 +394,10 @@ class ContentModel: ObservableObject {
         
     }
     
-    // Get simillar images from result
+    // Get similar images from result
     // Back incase no matching dog breed
     // Main use case if user using camera image which doesn't contain a dog
-    func getSimillarImagesBackUp() {
+    func getSimilarImagesBackUp() {
         // replace spaces with %20
         let searchTerm = self.identifier!.replacingOccurrences(of: " ", with: "%20")
             if let url = URL(string: "\(upslashImageFromSearchTerm)\(searchTerm)") {

@@ -9,69 +9,77 @@ import SwiftUI
 
 struct AppColor: View {
     @EnvironmentObject var model: ContentModel
-
+    
     var body: some View {
         
-            List {
-                Section {
-                    
-                    Button {
-                        model.setNewAppColor(color: .system)
-                        // Save user selection into memory
-                        UserDefaults.standard.set(AppColorSelection.system.rawValue, forKey: "colorSelection")
-                    } label: {
-                        HStack {
-                            Text("System")
-                            Spacer()
-                            if model.colorSelection == .system {
-                                Image(systemName: "checkmark")
-                            }
+        List {
+            
+            Section {
+                Button {
+                    model.setNewAppColor(color: .light)
+                    UserDefaults.standard.set(AppColorSelection.light.rawValue, forKey: "colorSelection")
+                } label: {
+                    HStack {
+                        Text("Light")
+                        Spacer()
+                        if model.colorSelection == .light {
+                            Image(systemName: "checkmark")
                         }
                     }
-                    .modifier(ListCellColorStyle())
-                    
-                    Button {
-                        model.setNewAppColor(color: .dark)
-                        UserDefaults.standard.set(AppColorSelection.dark.rawValue, forKey: "colorSelection")
-                    } label: {
-                        HStack {
-                            Text("Dark")
-                            Spacer()
-                            if model.colorSelection == .dark {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                    .modifier(ListCellColorStyle())
-                    
-                    Button {
-                        model.setNewAppColor(color: .light)
-                        UserDefaults.standard.set(AppColorSelection.light.rawValue, forKey: "colorSelection")
-                    } label: {
-                        HStack {
-                            Text("Light")
-                            Spacer()
-                            if model.colorSelection == .light {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                    .modifier(ListCellColorStyle())
-                    
-                } footer: {
-                    Text("Change the app color scheme. Defaults to match device settings")
                 }
+                .modifier(ListCellColorStyle())
+            } footer: {
+                Text("The default app setting. Follows light system theme")
+            }
+            
+            Section {
+                Button {
+                    model.setNewAppColor(color: .system)
+                    // Save user selection into memory
+                    UserDefaults.standard.set(AppColorSelection.system.rawValue, forKey: "colorSelection")
+                } label: {
+                    HStack {
+                        Text("System")
+                        Spacer()
+                        if model.colorSelection == .system {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+                .modifier(ListCellColorStyle())
+            } footer: {
+                Text("Follow your device appearance settings")
+            }
+            
+            Section {
+                Button {
+                    model.setNewAppColor(color: .dark)
+                    UserDefaults.standard.set(AppColorSelection.dark.rawValue, forKey: "colorSelection")
+                } label: {
+                    HStack {
+                        Text("Dark")
+                        Spacer()
+                        if model.colorSelection == .dark {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+                .modifier(ListCellColorStyle())
                 
+            } footer: {
+                Text("Force dark mode to the entire app")
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("App Color")
-                        .font(.headline)
-                }
+            
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("App Color")
+                    .font(.headline)
             }
-            .scrollContentBackground(.hidden)
-            .modifier(TextColorStyle())
-            .modifier(BackgroundColorStyle())
+        }
+        .scrollContentBackground(.hidden)
+        .modifier(TextColorStyle())
+        .modifier(BackgroundColorStyle())
         
     }
 }

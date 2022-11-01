@@ -16,7 +16,7 @@ struct ImageSource: View {
             
             Section {
                 Button {
-                    model.setImageSourc(source: .dogCEO)
+                    model.setImageSource(source: .dogCEO)
                     UserDefaults.standard.set(SourceImageSelection.dogCEO.rawValue, forKey: "sourceSelection")
                 } label: {
                     HStack {
@@ -36,13 +36,13 @@ struct ImageSource: View {
             
             Section {
                 Button {
-                    model.setImageSourc(source: .dopAPI)
-                    UserDefaults.standard.set(SourceImageSelection.dopAPI.rawValue, forKey: "sourceSelection")
+                    model.setImageSource(source: .dogAPI)
+                    UserDefaults.standard.set(SourceImageSelection.dogAPI.rawValue, forKey: "sourceSelection")
                 } label: {
                     HStack {
                         Text("TheDogAPI")
                         Spacer()
-                        if model.imageSelection == .dopAPI {
+                        if model.imageSelection == .dogAPI {
                             Image(systemName: "checkmark")
                         }
                     }

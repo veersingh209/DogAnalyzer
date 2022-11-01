@@ -16,10 +16,10 @@ let dogCeoBreedURLSufix = "/images/random/10"
 
 let successMessage = "success"
 let titleErrorMessage = "NO TITLE FOUND"
-let wikiErrorMessage = "No assoicated Wiki found"
+let wikiErrorMessage = "No associated Wiki found"
 
 // Support images for DogCEO
-// Used to find match so we can grab additon dog pictures of match breed
+// Used to find match so we can grab addition dog pictures of match breed
 let typeOfBreeds = [
     "affenpinscher",
     "african",
