@@ -31,6 +31,13 @@ struct ContentView: View {
             
             GeometryReader { geo in
                 
+                HStack {
+                    Spacer()
+                    Text("DogAnalyzer")
+                        .font(.title)
+                    Spacer()
+                }
+                
                 TabView() {
                     
                     VStack {
@@ -43,7 +50,8 @@ struct ContentView: View {
                                 
                                 if model.loading {
                                     ProgressView()
- //                                       .progressViewStyle(CircularProgressViewStyle(tint: Color.pink))
+                                    .scaleEffect(2)
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color.yellow))
                                 } else {
                                     Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                                         .resizable()
@@ -54,7 +62,7 @@ struct ContentView: View {
                                     Text(model.identifier ?? titleErrorMessage)
                                         .frame(
                                             width: geo.size.width - 40,
-                                            height: geo.size.height - 80,
+                                            height: geo.size.height - 185,
                                             alignment: .bottomLeading
                                         )
                                         .shadow(radius: 10)
@@ -66,7 +74,7 @@ struct ContentView: View {
                             }
                             .frame(
                                 width: geo.size.width - 40,
-                                height: geo.size.height - 50,
+                                height: geo.size.height - 135,
                                 alignment: .center
                             )
                             .cornerRadius(15)
@@ -91,53 +99,87 @@ struct ContentView: View {
                     x: -5,
                     y: 5
                 )
-            }
-            .opacity(model.imageData == nil ? 0 : 1)
-            
-            // Buttons
-            HStack(spacing: 30) {
                 
-                Button(action: {
-                    model.setLoadingTrue()
-                    activeSheet = .showOptionMenu
+                .opacity(model.imageData == nil ? 0 : 1)
+                
+                // Bottom Buttons
+                VStack {
+                    ZStack(alignment: .center) {
+                        
+                        Circle()
+                            .frame(width: geo.size.width/5, height: geo.size.height/5)
+                        Circle()
+                            .frame(width: geo.size.width/6, height: geo.size.height/6)
+                            .foregroundColor(.yellow)
+                        
+                        HStack(alignment: .center) {
+                            Spacer()
+                            Button(action: {
+                                model.setLoadingTrue()
+                                self.sourceType = .camera
+                                activeSheet = .isImagePickerDisplay
+                                
+                            }, label: {
+                                Image(systemName: "camera")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                            })
+                            .disabled(model.loading)
+                            Spacer()
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                model.setLoadingTrue()
+                                self.sourceType = .photoLibrary
+                                activeSheet = .isImagePickerDisplay
+                            }, label: {
+                                Image(systemName: "photo")
+                            })
+                            .padding(.trailing)
+                            Spacer()
+                            Spacer()
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            Spacer()
+                            
+                            Button(action: {
+                                model.setLoadingTrue()
+                                model.getDogData()
+                            }, label: {
+                                Image(systemName: "shuffle")
+                                    .bold()
+                            })
+                            .padding(.leading)
+                            .disabled(model.loading)
+                            Spacer()
+                        }
+
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                activeSheet = .showOptionMenu
+                            }, label: {
+                                Image(systemName: "ellipsis.circle")
+                                    .bold()
+                                    .rotationEffect(.degrees(-90))
+                            })
+                            .padding()
+                            .padding(.trailing)
+                            .disabled(model.loading)
+                        }
+                    }
                     
-                }, label: {
-                    Image(systemName: "ellipsis")
-                })
-                .disabled(model.loading)
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .ignoresSafeArea()
                 
-                Button(action: {
-                    model.setLoadingTrue()
-                    self.sourceType = .camera
-                    activeSheet = .isImagePickerDisplay
-                    
-                }, label: {
-                    Image(systemName: "camera")
-                })
-                .disabled(model.loading)
-                
-                Button(action: {
-                    model.setLoadingTrue()
-                    self.sourceType = .photoLibrary
-                    activeSheet = .isImagePickerDisplay
-                }, label: {
-                    Image(systemName: "photo")
-                })
-                .disabled(model.loading)
-                
-                Spacer()
-                
-                Button(action: {
-                    model.setLoadingTrue()
-                    model.getDogData()
-                }, label: {
-                    Text("Random")
-                        .bold()
-                })
-                .disabled(model.loading)
             }
-            .padding(.horizontal, 30)
-            
         }
         .modifier(TextColorStyle())
         .modifier(BackgroundColorStyle())

@@ -21,10 +21,6 @@ enum AppColorSelection: Int {
 }
 
 class ContentModel: ObservableObject {
-    
-   // @Published var dog = DogCEO()
-  //  @Published var theDog = TheDogAPI()
-    
     @Published var imageData: Data?
     @Published var similarResultsImageData = [Data?]()
     
@@ -37,7 +33,6 @@ class ContentModel: ObservableObject {
     @Published var imageSelection: SourceImageSelection? = .dogCEO
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
-    
     let userDefaults = UserDefaults.standard
     
     init() {
@@ -403,9 +398,8 @@ class ContentModel: ObservableObject {
     // Back incase no matching dog breed
     // Main use case if user using camera image which doesn't contain a dog
     func getSimillarImagesBackUp() {
-        print("UPLASH: Usuing Search Term: \(upslashImageFromSearchTerm)")
+        // replace spaces with %20
         let searchTerm = self.identifier!.replacingOccurrences(of: " ", with: "%20")
-        print("UPLASH: Usuing url: \(upslashImageFromSearchTerm)\(searchTerm)")
             if let url = URL(string: "\(upslashImageFromSearchTerm)\(searchTerm)") {
                 // disable cache to retrive diffrent images
                 let config = URLSessionConfiguration.default

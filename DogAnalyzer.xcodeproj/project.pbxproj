@@ -27,6 +27,7 @@
 		488953712909E532003FD054 /* DogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953702909E532003FD054 /* DogDetailView.swift */; };
 		48895376290AF933003FD054 /* DogCEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895375290AF933003FD054 /* DogCEO.swift */; };
 		4889537B290B014F003FD054 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889537A290B014F003FD054 /* ContentModel.swift */; };
+		48BA07C82910928700985034 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07C72910928700985034 /* TempView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		488953702909E532003FD054 /* DogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailView.swift; sourceTree = "<group>"; };
 		48895375290AF933003FD054 /* DogCEO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogCEO.swift; sourceTree = "<group>"; };
 		4889537A290B014F003FD054 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
+		48BA07C72910928700985034 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				4889534029073F6E003FD054 /* ContentView.swift */,
 				488953702909E532003FD054 /* DogDetailView.swift */,
 				480E409B290B2EB80097BEB5 /* Settings */,
+				48BA07C72910928700985034 /* TempView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */,
 				4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */,
+				48BA07C82910928700985034 /* TempView.swift in Sources */,
 				480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */,
 				480E40A1290C6ECD0097BEB5 /* BackgroundColorStyle.swift in Sources */,
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
