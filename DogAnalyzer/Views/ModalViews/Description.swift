@@ -32,7 +32,7 @@ struct Description: View {
                             .bold()
                             .foregroundColor(.black)
                         Spacer()
-                        Text(String(format: "%.2f%%", model.confidence! * 100))
+                        Text(String(format: "%.2f%%", (model.confidence ?? 0) * 100))
                             .bold()
                             .foregroundColor(.black)
                     }
@@ -40,7 +40,7 @@ struct Description: View {
                     .padding(.trailing, 10)
                     .padding(.top, 10)
                     
-                    ProgressBarView(value: model.confidence!)
+                    ProgressBar(value: model.confidence ?? 0)
                         .frame(height: 10)
                         .padding(.leading, 10)
                         .padding(.trailing, 10)

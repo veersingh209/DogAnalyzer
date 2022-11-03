@@ -13,6 +13,7 @@ let wikiURL = "https://en.wikipedia.org/wiki/"
 let upslashImageFromSearchTerm = "https://source.unsplash.com/random/?"
 let dogCeoBreedURLPrefix = "https://dog.ceo/api/breed/"
 let dogCeoBreedURLSufix = "/images/random/10"
+let dogCeoBreedURLListSufix = "/images/random"
 
 let successMessage = "success"
 let titleErrorMessage = "NO TITLE FOUND"

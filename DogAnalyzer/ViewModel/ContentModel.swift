@@ -34,9 +34,13 @@ class ContentModel: ObservableObject {
     @Published var dogInfo: String?
     @Published var loading: Bool
     
+    @Published var selectedBreed: String
+    
     @Published var isOnboarding: Bool
     @Published var colorSelection: AppColorSelection
     @Published var imageSelection: SourceImageSelection
+    
+    var lastURL: String?
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     let userDefaults = UserDefaults.standard
@@ -82,8 +86,37 @@ class ContentModel: ObservableObject {
         self.confidence = nil
         self.dogInfo = nil
         self.loading = true
+        self.selectedBreed = typeOfBreeds[0]
         
         self.getDogData()
+    }
+    
+    // Fetch new image for ListView
+    func setNewBreed(selectedBreed: String? = typeOfBreeds[0]) {
+        DispatchQueue.main.async {
+            self.identifier = nil
+            self.confidence = nil
+            self.dogInfo = nil
+            self.loading = true
+            self.selectedBreed = selectedBreed!
+            
+            self.getDogData(breed: self.selectedBreed)
+        }
+    }
+    
+    // Reset after viewing ListView
+    func resetURLtoLastKnown() {
+        DispatchQueue.main.async {
+            self.loading = true
+            
+            self.identifier = nil
+            self.confidence = nil
+            self.dogInfo = nil
+            self.loading = true
+            self.selectedBreed = typeOfBreeds[0]
+            
+            self.getImageData(imageUrl: self.lastURL)
+        }
     }
     
     func onBoardCompleted(status: UserOnboardStatus) {
@@ -134,15 +167,19 @@ class ContentModel: ObservableObject {
         }
     }
     
-    func getDogData() {
+    func getDogData(breed: String? = nil) {
         self.loading = true
         var selectedSourceURL = ""
         
-        switch self.imageSelection {
-        case .dogCEO:
-            selectedSourceURL = dogCeoURL
-        case .dogAPI:
-            selectedSourceURL = dogURL
+        if breed != nil {
+            selectedSourceURL = "\(dogCeoBreedURLPrefix)\(breed!)\(dogCeoBreedURLListSufix)"
+        } else {
+            switch self.imageSelection {
+            case .dogCEO:
+                selectedSourceURL = dogCeoURL
+            case .dogAPI:
+                selectedSourceURL = dogURL
+            }
         }
         
         if let url = URL(string: selectedSourceURL) {
@@ -152,17 +189,15 @@ class ContentModel: ObservableObject {
             
             let session = URLSession.shared
             
-            let dataTask = session.dataTask(with: request) { data, respone, error in
+            let dataTask = session.dataTask(with: request) { data, response, error in
                 let decoder = JSONDecoder()
                 
                 if error == nil && data != nil {
                     
                     do {
                         
-                        // Get data based on user selected source
-                        switch self.imageSelection {
-                        case .dogCEO:
-                            
+                        // If in List view use dogCEO, as it supports breed searches
+                        if breed != nil {
                             let results = try decoder.decode(DogCEO.self, from: data!)
                             
                             if results.status == successMessage {
@@ -171,17 +206,33 @@ class ContentModel: ObservableObject {
                                     self.getImageData(imageUrl: results.message)
                                 }
                             }
-                            
-                        case .dogAPI:
-                            
-                            let results = try decoder.decode([TheDogAPI].self, from: data!)
-                            if !results.isEmpty {
-                                let item = results[0]
-                                DispatchQueue.main.async {
-                                    self.getImageData(imageUrl: item.url)
+                        } else {
+                            // Get data based on user selected source
+                            switch self.imageSelection {
+                            case .dogCEO:
+                                
+                                let results = try decoder.decode(DogCEO.self, from: data!)
+                                
+                                if results.status == successMessage {
+                                    DispatchQueue.main.async {
+                                        results.id = UUID()
+                                        self.lastURL = results.message
+                                        self.getImageData(imageUrl: results.message)
+                                    }
                                 }
+                                
+                            case .dogAPI:
+                                
+                                let results = try decoder.decode([TheDogAPI].self, from: data!)
+                                if !results.isEmpty {
+                                    let item = results[0]
+                                    DispatchQueue.main.async {
+                                        self.lastURL = item.url
+                                        self.getImageData(imageUrl: item.url)
+                                    }
+                                }
+                                
                             }
-                            
                         }
                         
                         
@@ -195,6 +246,9 @@ class ContentModel: ObservableObject {
             }
             
             dataTask.resume()
+        }
+        else {
+            print("ERROR! Not able to set URL: \(selectedSourceURL)")
         }
     }
     

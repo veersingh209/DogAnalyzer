@@ -10,7 +10,8 @@ import SwiftUI
 enum ActiveSheet: Identifiable {
     case showDetailView,
          showOptionMenu,
-         isImagePickerDisplay
+         isImagePickerDisplay,
+         showDogListView
     
     var id: String {
         "hash"
@@ -63,6 +64,11 @@ struct ContentView: View {
                         if selectedImage != nil {
                             self.model.newCameraImage(image: selectedImage!.pngData())
                         }
+                    }
+            case .showDogListView:
+                DogListView()
+                    .onDisappear {
+                        model.resetURLtoLastKnown()
                     }
             }
         })

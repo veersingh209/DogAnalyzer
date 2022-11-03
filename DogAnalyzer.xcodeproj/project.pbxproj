@@ -28,9 +28,6 @@
 		48895376290AF933003FD054 /* DogCEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895375290AF933003FD054 /* DogCEO.swift */; };
 		4889537B290B014F003FD054 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889537A290B014F003FD054 /* ContentModel.swift */; };
 		48BA07CC2911848200985034 /* ButtonBackgroundColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07CB2911848200985034 /* ButtonBackgroundColorStyle.swift */; };
-		48BA07D0291195E000985034 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07CF291195E000985034 /* ProgressBarView.swift */; };
-		48BA07D229119A2F00985034 /* SimilarWebImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D129119A2F00985034 /* SimilarWebImages.swift */; };
-		48BA07D529119B9C00985034 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D429119B9C00985034 /* Description.swift */; };
 		48BA07D829119C9100985034 /* MainImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D729119C9100985034 /* MainImage.swift */; };
 		48BA07DA29119D9300985034 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D929119D9300985034 /* Buttons.swift */; };
 		48BA07DE2911C33300985034 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07DD2911C33300985034 /* StartView.swift */; };
@@ -41,6 +38,11 @@
 		48BA07EB2911CF9400985034 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 48BA07EA2911CF9400985034 /* PopupView */; };
 		48BA07ED2911D40300985034 /* TutorialPopUps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07EC2911D40300985034 /* TutorialPopUps.swift */; };
 		48BA07F129132EFF00985034 /* DetailTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07F029132EFF00985034 /* DetailTutorialView.swift */; };
+		48BA07F32914325E00985034 /* DogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07F22914325E00985034 /* DogListView.swift */; };
+		48BA0800291434F000985034 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07FF291434F000985034 /* Description.swift */; };
+		48BA08042914352100985034 /* SimilarWebImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08032914352100985034 /* SimilarWebImages.swift */; };
+		48BA08092914692700985034 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08082914692700985034 /* ProgressBar.swift */; };
+		48C4A6912914701400207ADC /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6902914701400207ADC /* test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,9 +67,6 @@
 		48895375290AF933003FD054 /* DogCEO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogCEO.swift; sourceTree = "<group>"; };
 		4889537A290B014F003FD054 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		48BA07CB2911848200985034 /* ButtonBackgroundColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBackgroundColorStyle.swift; sourceTree = "<group>"; };
-		48BA07CF291195E000985034 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
-		48BA07D129119A2F00985034 /* SimilarWebImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarWebImages.swift; sourceTree = "<group>"; };
-		48BA07D429119B9C00985034 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		48BA07D729119C9100985034 /* MainImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainImage.swift; sourceTree = "<group>"; };
 		48BA07D929119D9300985034 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		48BA07DD2911C33300985034 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -77,6 +76,12 @@
 		48BA07E72911C56800985034 /* OnboardingCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomButton.swift; sourceTree = "<group>"; };
 		48BA07EC2911D40300985034 /* TutorialPopUps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPopUps.swift; sourceTree = "<group>"; };
 		48BA07F029132EFF00985034 /* DetailTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTutorialView.swift; sourceTree = "<group>"; };
+		48BA07F22914325E00985034 /* DogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListView.swift; sourceTree = "<group>"; };
+		48BA07FB2914343300985034 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		48BA07FF291434F000985034 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		48BA08032914352100985034 /* SimilarWebImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarWebImages.swift; sourceTree = "<group>"; };
+		48BA08082914692700985034 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		48C4A6902914701400207ADC /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +105,14 @@
 				480E409E290B2EEA0097BEB5 /* ImageSource.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		480F94912914699E006A147D /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				48BA07FB2914343300985034 /* ProgressBarView.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		485461D1290CA28900590D24 /* Color */ = {
@@ -126,6 +139,7 @@
 			children = (
 				4889533D29073F6E003FD054 /* DogAnalyzer */,
 				4889533C29073F6E003FD054 /* Products */,
+				480F94912914699E006A147D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,9 +178,9 @@
 			isa = PBXGroup;
 			children = (
 				48BA07DD2911C33300985034 /* StartView.swift */,
-				48BA07DF2911C35B00985034 /* Onboarding */,
-				48BA07D629119C8200985034 /* Home */,
-				48BA07D329119B3700985034 /* DetailView */,
+				48BA07DF2911C35B00985034 /* OnboardingView */,
+				48BA07D629119C8200985034 /* HomeView */,
+				48BA07D329119B3700985034 /* ModalViews */,
 				480E409B290B2EB80097BEB5 /* Settings */,
 			);
 			path = Views;
@@ -210,28 +224,30 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		48BA07D329119B3700985034 /* DetailView */ = {
+		48BA07D329119B3700985034 /* ModalViews */ = {
 			isa = PBXGroup;
 			children = (
-				488953702909E532003FD054 /* DogDetailView.swift */,
-				48BA07CF291195E000985034 /* ProgressBarView.swift */,
-				48BA07D129119A2F00985034 /* SimilarWebImages.swift */,
-				48BA07D429119B9C00985034 /* Description.swift */,
+				48BA08072914689700985034 /* DetailView */,
+				48BA07F4291432F300985034 /* ListView */,
+				48BA08082914692700985034 /* ProgressBar.swift */,
+				48BA07FF291434F000985034 /* Description.swift */,
+				48BA08032914352100985034 /* SimilarWebImages.swift */,
 			);
-			path = DetailView;
+			path = ModalViews;
 			sourceTree = "<group>";
 		};
-		48BA07D629119C8200985034 /* Home */ = {
+		48BA07D629119C8200985034 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
 				4889534029073F6E003FD054 /* ContentView.swift */,
 				48BA07D729119C9100985034 /* MainImage.swift */,
 				48BA07D929119D9300985034 /* Buttons.swift */,
+				48C4A6902914701400207ADC /* test.swift */,
 			);
-			path = Home;
+			path = HomeView;
 			sourceTree = "<group>";
 		};
-		48BA07DF2911C35B00985034 /* Onboarding */ = {
+		48BA07DF2911C35B00985034 /* OnboardingView */ = {
 			isa = PBXGroup;
 			children = (
 				48BA07E02911C38100985034 /* OnBoardingContainerView.swift */,
@@ -240,7 +256,7 @@
 				48BA07F029132EFF00985034 /* DetailTutorialView.swift */,
 				48BA07EC2911D40300985034 /* TutorialPopUps.swift */,
 			);
-			path = Onboarding;
+			path = OnboardingView;
 			sourceTree = "<group>";
 		};
 		48BA07E62911C54400985034 /* Helper */ = {
@@ -249,6 +265,22 @@
 				48BA07E72911C56800985034 /* OnboardingCustomButton.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		48BA07F4291432F300985034 /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				48BA07F22914325E00985034 /* DogListView.swift */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		48BA08072914689700985034 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				488953702909E532003FD054 /* DogDetailView.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,25 +366,27 @@
 				480E409F290B2EEA0097BEB5 /* ImageSource.swift in Sources */,
 				48BA07CC2911848200985034 /* ButtonBackgroundColorStyle.swift in Sources */,
 				485461D4290CB6E600590D24 /* TheDogAPI.swift in Sources */,
+				48C4A6912914701400207ADC /* test.swift in Sources */,
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */,
+				48BA08042914352100985034 /* SimilarWebImages.swift in Sources */,
 				48BA07E32911C3A900985034 /* WelcomeView.swift in Sources */,
 				48BA07D829119C9100985034 /* MainImage.swift in Sources */,
-				48BA07D529119B9C00985034 /* Description.swift in Sources */,
 				48BA07ED2911D40300985034 /* TutorialPopUps.swift in Sources */,
 				4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */,
 				480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */,
-				48BA07D0291195E000985034 /* ProgressBarView.swift in Sources */,
 				48BA07E82911C56800985034 /* OnboardingCustomButton.swift in Sources */,
 				480E40A1290C6ECD0097BEB5 /* BackgroundColorStyle.swift in Sources */,
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
-				48BA07D229119A2F00985034 /* SimilarWebImages.swift in Sources */,
+				48BA07F32914325E00985034 /* DogListView.swift in Sources */,
 				48BA07DA29119D9300985034 /* Buttons.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				4889537B290B014F003FD054 /* ContentModel.swift in Sources */,
+				48BA08092914692700985034 /* ProgressBar.swift in Sources */,
 				48895376290AF933003FD054 /* DogCEO.swift in Sources */,
 				480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,
+				48BA0800291434F000985034 /* Description.swift in Sources */,
 				48BA07E52911C51200985034 /* HomeTutorialView.swift in Sources */,
 				48BA07E12911C38100985034 /* OnBoardingContainerView.swift in Sources */,
 				4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */,

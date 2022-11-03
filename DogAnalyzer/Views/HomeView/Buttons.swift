@@ -17,11 +17,11 @@ struct Buttons: View {
     var body: some View {
         
         VStack {
-            ZStack(alignment: .center) {
+            ZStack {
                 
-                // Main Camera Image
-                HStack(alignment: .center) {
-                    Spacer()
+                // Center button
+                HStack {
+                    // Main Camera Image
                     Button(action: {
                         model.setLoadingTrue()
                         self.sourceType = .camera
@@ -42,13 +42,29 @@ struct Buttons: View {
                         }
                     })
                     .disabled(model.loading)
-                    Spacer()
                 }
                 
-                // Photo selector Button
-                HStack {
-                    Spacer()
+                // Left side buttons
+                HStack(alignment: .center, spacing: 30) {
                     
+                    // Dog list view
+                    Button(action: {
+                        model.setLoadingTrue()
+                        model.setNewBreed()
+                        activeSheet = .showDogListView
+                    }, label: {
+                        ZStack {
+                            Circle()
+                                .frame(width: geometry.size.width/9, height: geometry.size.height/9)
+                                .foregroundColor(.yellow)
+                            
+                            Image(systemName: "list.bullet")
+                                .font(.title2)
+                        }
+                    })
+                    .disabled(model.loading)
+                    
+                    // Photo selector Button
                     Button(action: {
                         model.setLoadingTrue()
                         self.sourceType = .photoLibrary
@@ -63,17 +79,18 @@ struct Buttons: View {
                                 .font(.title2)
                         }
                     })
-                    .padding(.trailing, 30)
-                    .padding(.top)
-                    Spacer()
+                    .disabled(model.loading)
+                    
                     Spacer()
                 }
+                .padding(.leading, 35)
                 
-                // Random Image Button
-                HStack {
-                    Spacer()
+                // Right side buttons
+                HStack(alignment: .center, spacing: 30) {
+                    
                     Spacer()
                     
+                    // Random Image Button
                     Button(action: {
                         model.setLoadingTrue()
                         model.getDogData()
@@ -87,29 +104,31 @@ struct Buttons: View {
                                 .font(.title2)
                         }
                     })
-                    .padding(.leading, 30)
-                    .padding(.top)
                     .disabled(model.loading)
-                    Spacer()
-                }
-                // Setting preferences button
-                HStack {
-                    Spacer()
+                    
+                    // Setting preferences button
                     Button(action: {
                         activeSheet = .showOptionMenu
                     }, label: {
-                        Image(systemName: "slider.horizontal.3")
-                            .font(.title2)
+                        ZStack {
+                            Circle()
+                                .frame(width: geometry.size.width/9, height: geometry.size.height/9)
+                                .foregroundColor(.clear)
+                            
+                            Image(systemName: "slider.horizontal.3")
+                                .font(.title2)
+                        }
+                        
                     })
-                    .padding(.trailing, 30)
-                    .padding(.top)
                     .disabled(model.loading)
+                    
                 }
+                .padding(.trailing, 35)
                 
             }
-            
+  
         }
-        .frame(maxHeight: .infinity, alignment: .bottom)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
         
     }
