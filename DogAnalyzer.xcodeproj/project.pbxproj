@@ -27,13 +27,20 @@
 		488953712909E532003FD054 /* DogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488953702909E532003FD054 /* DogDetailView.swift */; };
 		48895376290AF933003FD054 /* DogCEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48895375290AF933003FD054 /* DogCEO.swift */; };
 		4889537B290B014F003FD054 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889537A290B014F003FD054 /* ContentModel.swift */; };
-		48BA07C82910928700985034 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07C72910928700985034 /* TempView.swift */; };
 		48BA07CC2911848200985034 /* ButtonBackgroundColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07CB2911848200985034 /* ButtonBackgroundColorStyle.swift */; };
 		48BA07D0291195E000985034 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07CF291195E000985034 /* ProgressBarView.swift */; };
 		48BA07D229119A2F00985034 /* SimilarWebImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D129119A2F00985034 /* SimilarWebImages.swift */; };
 		48BA07D529119B9C00985034 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D429119B9C00985034 /* Description.swift */; };
 		48BA07D829119C9100985034 /* MainImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D729119C9100985034 /* MainImage.swift */; };
 		48BA07DA29119D9300985034 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07D929119D9300985034 /* Buttons.swift */; };
+		48BA07DE2911C33300985034 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07DD2911C33300985034 /* StartView.swift */; };
+		48BA07E12911C38100985034 /* OnBoardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07E02911C38100985034 /* OnBoardingContainerView.swift */; };
+		48BA07E32911C3A900985034 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07E22911C3A900985034 /* WelcomeView.swift */; };
+		48BA07E52911C51200985034 /* HomeTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07E42911C51200985034 /* HomeTutorialView.swift */; };
+		48BA07E82911C56800985034 /* OnboardingCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07E72911C56800985034 /* OnboardingCustomButton.swift */; };
+		48BA07EB2911CF9400985034 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 48BA07EA2911CF9400985034 /* PopupView */; };
+		48BA07ED2911D40300985034 /* TutorialPopUps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07EC2911D40300985034 /* TutorialPopUps.swift */; };
+		48BA07F129132EFF00985034 /* DetailTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07F029132EFF00985034 /* DetailTutorialView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,13 +64,19 @@
 		488953702909E532003FD054 /* DogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailView.swift; sourceTree = "<group>"; };
 		48895375290AF933003FD054 /* DogCEO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogCEO.swift; sourceTree = "<group>"; };
 		4889537A290B014F003FD054 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
-		48BA07C72910928700985034 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		48BA07CB2911848200985034 /* ButtonBackgroundColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBackgroundColorStyle.swift; sourceTree = "<group>"; };
 		48BA07CF291195E000985034 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		48BA07D129119A2F00985034 /* SimilarWebImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarWebImages.swift; sourceTree = "<group>"; };
 		48BA07D429119B9C00985034 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		48BA07D729119C9100985034 /* MainImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainImage.swift; sourceTree = "<group>"; };
 		48BA07D929119D9300985034 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		48BA07DD2911C33300985034 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		48BA07E02911C38100985034 /* OnBoardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingContainerView.swift; sourceTree = "<group>"; };
+		48BA07E22911C3A900985034 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		48BA07E42911C51200985034 /* HomeTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTutorialView.swift; sourceTree = "<group>"; };
+		48BA07E72911C56800985034 /* OnboardingCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomButton.swift; sourceTree = "<group>"; };
+		48BA07EC2911D40300985034 /* TutorialPopUps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPopUps.swift; sourceTree = "<group>"; };
+		48BA07F029132EFF00985034 /* DetailTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTutorialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48BA07EB2911CF9400985034 /* PopupView in Frameworks */,
 				4889536929088631003FD054 /* WikipediaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +144,7 @@
 				48895358290745E3003FD054 /* Views */,
 				48895373290AF8E5003FD054 /* ViewModel */,
 				48895374290AF91D003FD054 /* Models */,
+				48BA07E62911C54400985034 /* Helper */,
 				4889535B29074610003FD054 /* Utilites */,
 				4889534229073F70003FD054 /* Assets.xcassets */,
 				4889534429073F70003FD054 /* Preview Content */,
@@ -148,10 +163,11 @@
 		48895358290745E3003FD054 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				48BA07DD2911C33300985034 /* StartView.swift */,
+				48BA07DF2911C35B00985034 /* Onboarding */,
 				48BA07D629119C8200985034 /* Home */,
 				48BA07D329119B3700985034 /* DetailView */,
 				480E409B290B2EB80097BEB5 /* Settings */,
-				48BA07C72910928700985034 /* TempView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -215,6 +231,26 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		48BA07DF2911C35B00985034 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				48BA07E02911C38100985034 /* OnBoardingContainerView.swift */,
+				48BA07E22911C3A900985034 /* WelcomeView.swift */,
+				48BA07E42911C51200985034 /* HomeTutorialView.swift */,
+				48BA07F029132EFF00985034 /* DetailTutorialView.swift */,
+				48BA07EC2911D40300985034 /* TutorialPopUps.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		48BA07E62911C54400985034 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				48BA07E72911C56800985034 /* OnboardingCustomButton.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -233,6 +269,7 @@
 			name = DogAnalyzer;
 			packageProductDependencies = (
 				4889536829088631003FD054 /* WikipediaKit */,
+				48BA07EA2911CF9400985034 /* PopupView */,
 			);
 			productName = DogAnalyzer;
 			productReference = 4889533B29073F6E003FD054 /* DogAnalyzer.app */;
@@ -264,6 +301,7 @@
 			mainGroup = 4889533229073F6E003FD054;
 			packageReferences = (
 				4889536729088631003FD054 /* XCRemoteSwiftPackageReference "WikipediaKit" */,
+				48BA07E92911CF9400985034 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 4889533C29073F6E003FD054 /* Products */;
 			projectDirPath = "";
@@ -292,17 +330,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
+				48BA07DE2911C33300985034 /* StartView.swift in Sources */,
 				480E409F290B2EEA0097BEB5 /* ImageSource.swift in Sources */,
 				48BA07CC2911848200985034 /* ButtonBackgroundColorStyle.swift in Sources */,
 				485461D4290CB6E600590D24 /* TheDogAPI.swift in Sources */,
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */,
+				48BA07E32911C3A900985034 /* WelcomeView.swift in Sources */,
 				48BA07D829119C9100985034 /* MainImage.swift in Sources */,
 				48BA07D529119B9C00985034 /* Description.swift in Sources */,
+				48BA07ED2911D40300985034 /* TutorialPopUps.swift in Sources */,
 				4889536D29088ED6003FD054 /* HTMLStringView.swift in Sources */,
-				48BA07C82910928700985034 /* TempView.swift in Sources */,
 				480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */,
 				48BA07D0291195E000985034 /* ProgressBarView.swift in Sources */,
+				48BA07E82911C56800985034 /* OnboardingCustomButton.swift in Sources */,
 				480E40A1290C6ECD0097BEB5 /* BackgroundColorStyle.swift in Sources */,
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
 				48BA07D229119A2F00985034 /* SimilarWebImages.swift in Sources */,
@@ -312,7 +353,10 @@
 				48895376290AF933003FD054 /* DogCEO.swift in Sources */,
 				480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,
+				48BA07E52911C51200985034 /* HomeTutorialView.swift in Sources */,
+				48BA07E12911C38100985034 /* OnBoardingContainerView.swift in Sources */,
 				4889536629087077003FD054 /* MobileNetV2.mlmodel in Sources */,
+				48BA07F129132EFF00985034 /* DetailTutorialView.swift in Sources */,
 				480E40A3290C73EA0097BEB5 /* TextColorStyle.swift in Sources */,
 				4889534F29073FEF003FD054 /* Constants.swift in Sources */,
 			);
@@ -527,6 +571,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		48BA07E92911CF9400985034 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -534,6 +586,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4889536729088631003FD054 /* XCRemoteSwiftPackageReference "WikipediaKit" */;
 			productName = WikipediaKit;
+		};
+		48BA07EA2911CF9400985034 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48BA07E92911CF9400985034 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

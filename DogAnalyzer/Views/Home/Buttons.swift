@@ -30,10 +30,10 @@ struct Buttons: View {
                     }, label: {
                         ZStack {
                             Circle()
-                                .frame(width: geometry.size.width/5, height: geometry.size.height/5)
+                                .frame(width: geometry.size.width/4.5, height: geometry.size.height/4.5)
                                 .modifier(ButtonBackgroundColorStyle())
                             Circle()
-                                .frame(width: geometry.size.width/6, height: geometry.size.height/6)
+                                .frame(width: geometry.size.width/5, height: geometry.size.height/5)
                                 .foregroundColor(.yellow)
                             
                             Image(systemName: "camera")
@@ -54,8 +54,14 @@ struct Buttons: View {
                         self.sourceType = .photoLibrary
                         activeSheet = .isImagePickerDisplay
                     }, label: {
-                        Image(systemName: "photo")
-                            .font(.title2)
+                        ZStack {
+                            Circle()
+                                .frame(width: geometry.size.width/9, height: geometry.size.height/9)
+                                .foregroundColor(.yellow)
+                            
+                            Image(systemName: "photo")
+                                .font(.title2)
+                        }
                     })
                     .padding(.trailing, 30)
                     .padding(.top)
@@ -72,8 +78,14 @@ struct Buttons: View {
                         model.setLoadingTrue()
                         model.getDogData()
                     }, label: {
-                        Image(systemName: "shuffle")
-                            .font(.title2)
+                        ZStack {
+                            Circle()
+                                .frame(width: geometry.size.width/9, height: geometry.size.height/9)
+                                .foregroundColor(.yellow)
+                            
+                            Image(systemName: "shuffle")
+                                .font(.title2)
+                        }
                     })
                     .padding(.leading, 30)
                     .padding(.top)

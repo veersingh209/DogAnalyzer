@@ -83,9 +83,3 @@ struct AppColor: View {
         
     }
 }
-
-struct AppColor_Previews: PreviewProvider {
-    static var previews: some View {
-        AppColor()
-    }
-}

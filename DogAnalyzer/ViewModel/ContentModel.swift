@@ -15,9 +15,14 @@ enum SourceImageSelection: Int {
 }
 
 enum AppColorSelection: Int {
-    case system = 1,
+    case light = 1,
          dark = 2,
-         light = 3
+         system = 3
+}
+
+enum UserOnboardStatus: Int {
+    case needsToOnboard = 1,
+         onboardCompleted = 2
 }
 
 class ContentModel: ObservableObject {
@@ -29,29 +34,40 @@ class ContentModel: ObservableObject {
     @Published var dogInfo: String?
     @Published var loading: Bool
     
-    @Published var colorSelection: AppColorSelection = .light
-    @Published var imageSelection: SourceImageSelection? = .dogCEO
+    @Published var isOnboarding: Bool
+    @Published var colorSelection: AppColorSelection
+    @Published var imageSelection: SourceImageSelection
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     let userDefaults = UserDefaults.standard
     
     init() {
+        // Retrieve onboarding status from memory
+        let userIsOnboarding = userDefaults.integer(forKey: "isOnboarding")
+        switch userIsOnboarding {
+        case 1:
+            self.isOnboarding = true
+        case 2:
+            self.isOnboarding = false
+        default:
+            self.isOnboarding = true
+        }
+        
         // Retrieve Color selection from memory
         let colorChoice = userDefaults.integer(forKey: "colorSelection")
         switch colorChoice {
         case 1:
-            self.colorSelection = .system
+            self.colorSelection = .light
         case 2:
             self.colorSelection = .dark
         case 3:
-            self.colorSelection = .light
-        default:
             self.colorSelection = .system
+        default:
+            self.colorSelection = .light
         }
         
         // Retrieve Source selection from memory
         let sourceChoice = userDefaults.integer(forKey: "sourceSelection")
-        
         switch sourceChoice {
         case 1:
             self.imageSelection = .dogCEO
@@ -68,6 +84,17 @@ class ContentModel: ObservableObject {
         self.loading = true
         
         self.getDogData()
+    }
+    
+    func onBoardCompleted(status: UserOnboardStatus) {
+        DispatchQueue.main.async {
+            switch status {
+            case .needsToOnboard:
+                self.isOnboarding = true
+            case .onboardCompleted:
+                self.isOnboarding = false
+            }
+        }
     }
     
     func newCameraImage(image: Data?) {
@@ -116,8 +143,6 @@ class ContentModel: ObservableObject {
             selectedSourceURL = dogCeoURL
         case .dogAPI:
             selectedSourceURL = dogURL
-        default:
-            selectedSourceURL = dogCeoURL
         }
         
         if let url = URL(string: selectedSourceURL) {
@@ -156,9 +181,6 @@ class ContentModel: ObservableObject {
                                     self.getImageData(imageUrl: item.url)
                                 }
                             }
-                            
-                        case .none:
-                            break
                             
                         }
                         
