@@ -42,7 +42,9 @@
 		48BA0800291434F000985034 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07FF291434F000985034 /* Description.swift */; };
 		48BA08042914352100985034 /* SimilarWebImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08032914352100985034 /* SimilarWebImages.swift */; };
 		48BA08092914692700985034 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08082914692700985034 /* ProgressBar.swift */; };
-		48C4A6912914701400207ADC /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6902914701400207ADC /* test.swift */; };
+		48C4A6932914802900207ADC /* SimilarImagePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6922914802900207ADC /* SimilarImagePopUpView.swift */; };
+		48C4A6962915962000207ADC /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6952915962000207ADC /* ProgressView.swift */; };
+		48C4A6992915974300207ADC /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6982915974300207ADC /* test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +83,9 @@
 		48BA07FF291434F000985034 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		48BA08032914352100985034 /* SimilarWebImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarWebImages.swift; sourceTree = "<group>"; };
 		48BA08082914692700985034 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		48C4A6902914701400207ADC /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		48C4A6922914802900207ADC /* SimilarImagePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarImagePopUpView.swift; sourceTree = "<group>"; };
+		48C4A6952915962000207ADC /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		48C4A6982915974300207ADC /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +185,9 @@
 				48BA07DF2911C35B00985034 /* OnboardingView */,
 				48BA07D629119C8200985034 /* HomeView */,
 				48BA07D329119B3700985034 /* ModalViews */,
+				48C4A6942915960D00207ADC /* HelperViews */,
 				480E409B290B2EB80097BEB5 /* Settings */,
+				48C4A6982915974300207ADC /* test.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -229,9 +235,6 @@
 			children = (
 				48BA08072914689700985034 /* DetailView */,
 				48BA07F4291432F300985034 /* ListView */,
-				48BA08082914692700985034 /* ProgressBar.swift */,
-				48BA07FF291434F000985034 /* Description.swift */,
-				48BA08032914352100985034 /* SimilarWebImages.swift */,
 			);
 			path = ModalViews;
 			sourceTree = "<group>";
@@ -242,7 +245,6 @@
 				4889534029073F6E003FD054 /* ContentView.swift */,
 				48BA07D729119C9100985034 /* MainImage.swift */,
 				48BA07D929119D9300985034 /* Buttons.swift */,
-				48C4A6902914701400207ADC /* test.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -281,6 +283,26 @@
 				488953702909E532003FD054 /* DogDetailView.swift */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		48C4A6942915960D00207ADC /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				48C4A6952915962000207ADC /* ProgressView.swift */,
+				48C4A6972915967500207ADC /* Modal */,
+			);
+			path = HelperViews;
+			sourceTree = "<group>";
+		};
+		48C4A6972915967500207ADC /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				48BA08082914692700985034 /* ProgressBar.swift */,
+				48BA07FF291434F000985034 /* Description.swift */,
+				48BA08032914352100985034 /* SimilarWebImages.swift */,
+				48C4A6922914802900207ADC /* SimilarImagePopUpView.swift */,
+			);
+			path = Modal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,11 +384,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4889534129073F6E003FD054 /* ContentView.swift in Sources */,
+				48C4A6992915974300207ADC /* test.swift in Sources */,
 				48BA07DE2911C33300985034 /* StartView.swift in Sources */,
 				480E409F290B2EEA0097BEB5 /* ImageSource.swift in Sources */,
 				48BA07CC2911848200985034 /* ButtonBackgroundColorStyle.swift in Sources */,
 				485461D4290CB6E600590D24 /* TheDogAPI.swift in Sources */,
-				48C4A6912914701400207ADC /* test.swift in Sources */,
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */,
 				48BA08042914352100985034 /* SimilarWebImages.swift in Sources */,
@@ -377,12 +399,14 @@
 				480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */,
 				48BA07E82911C56800985034 /* OnboardingCustomButton.swift in Sources */,
 				480E40A1290C6ECD0097BEB5 /* BackgroundColorStyle.swift in Sources */,
+				48C4A6932914802900207ADC /* SimilarImagePopUpView.swift in Sources */,
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
 				48BA07F32914325E00985034 /* DogListView.swift in Sources */,
 				48BA07DA29119D9300985034 /* Buttons.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				4889537B290B014F003FD054 /* ContentModel.swift in Sources */,
 				48BA08092914692700985034 /* ProgressBar.swift in Sources */,
+				48C4A6962915962000207ADC /* ProgressView.swift in Sources */,
 				48895376290AF933003FD054 /* DogCEO.swift in Sources */,
 				480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,

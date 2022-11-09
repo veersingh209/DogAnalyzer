@@ -33,10 +33,14 @@ class ContentModel: ObservableObject {
     @Published var confidence: Double?
     @Published var dogInfo: String?
     @Published var loading: Bool
-    
     @Published var selectedBreed: String
-    
     @Published var isOnboarding: Bool
+    
+    // Store separate image/name for list view to not effect home view when modal dismissed
+    @Published var imageDataListView: Data?
+    @Published var identifierListView: String?
+    @Published var viewingListView: Bool = false
+    
     @Published var colorSelection: AppColorSelection
     @Published var imageSelection: SourceImageSelection
     
@@ -94,6 +98,8 @@ class ContentModel: ObservableObject {
     // Fetch new image for ListView
     func setNewBreed(selectedBreed: String? = typeOfBreeds[0]) {
         DispatchQueue.main.async {
+            self.viewingListView = true
+            
             self.identifier = nil
             self.confidence = nil
             self.dogInfo = nil
@@ -107,12 +113,12 @@ class ContentModel: ObservableObject {
     // Reset after viewing ListView
     func resetURLtoLastKnown() {
         DispatchQueue.main.async {
+            self.viewingListView = false
             self.loading = true
             
             self.identifier = nil
             self.confidence = nil
             self.dogInfo = nil
-            self.loading = true
             self.selectedBreed = typeOfBreeds[0]
             
             self.getImageData(imageUrl: self.lastURL)
@@ -258,8 +264,14 @@ class ContentModel: ObservableObject {
             let dataTask = session.dataTask(with: url) { data, response, error in
                 if error == nil {
                     DispatchQueue.main.async {
-                        self.imageData = data!
-                        self.classifyAnimal(image: self.imageData)
+                        if self.viewingListView {
+                            self.imageDataListView = data!
+                            self.classifyAnimal(image: self.imageDataListView)
+                        } else {
+                            self.imageData = data!
+                            self.classifyAnimal(image: self.imageData)
+                        }
+                        
                     }
                     
                 } else {
@@ -283,10 +295,17 @@ class ContentModel: ObservableObject {
                 print("Could not classify animal")
                 return
             }
-            self.identifier = results[0].identifier
-            self.confidence = Double(results[0].confidence)
+            if self.viewingListView {
+                self.identifierListView = results[0].identifier
+                
+                self.identifier = self.identifierListView!.prefix(1).capitalized + self.identifierListView!.dropFirst()
+            } else {
+                self.identifier = results[0].identifier
+                
+                self.identifier = self.identifier!.prefix(1).capitalized + self.identifier!.dropFirst()
+            }
             
-            self.identifier = self.identifier!.prefix(1).capitalized + self.identifier!.dropFirst()
+            self.confidence = Double(results[0].confidence)
             
         }
         
@@ -296,9 +315,15 @@ class ContentModel: ObservableObject {
             print("Invalid image")
         }
         
-        self.wikiInfo(dogBreed: self.identifier!)
+        if self.viewingListView {
+            self.wikiInfo(dogBreed: self.identifierListView!)
+        } else {
+            self.wikiInfo(dogBreed: self.identifier!)
+        }
+        
         self.loading = false
     }
+    
     
     func wikiInfo(dogBreed: String) {
         var htmlText = " "
@@ -402,7 +427,6 @@ class ContentModel: ObservableObject {
                 self.getSimilarImagesBackUp()
             }
         }
-
         
     }
     
@@ -440,7 +464,7 @@ class ContentModel: ObservableObject {
                                                 DispatchQueue.main.async {
                                                     self.similarResultsImageData.append(data!)
                                                 }
-
+                                                
                                             } else {
                                                 print("ERROR! Unable to retrieve image data: \(String(describing: error))")
                                             }
@@ -448,11 +472,11 @@ class ContentModel: ObservableObject {
                                         dataTask.resume()
                                     }
                                 }
-                    
-
+                                
+                                
                             }
                         } else {
-                            print("Reviced error response from API")
+                            print("Revived error response from API")
                         }
                         
                         
@@ -476,29 +500,29 @@ class ContentModel: ObservableObject {
     func getSimilarImagesBackUp() {
         // replace spaces with %20
         let searchTerm = self.identifier!.replacingOccurrences(of: " ", with: "%20")
-            if let url = URL(string: "\(upslashImageFromSearchTerm)\(searchTerm)") {
-                // disable cache to retrive diffrent images
-                let config = URLSessionConfiguration.default
-                config.requestCachePolicy = .reloadIgnoringLocalCacheData
-                config.urlCache = nil
-                
-                let session = URLSession.init(configuration: config)
-                let dataTask = session.dataTask(with: url) { data, response, error in
-                    if error == nil {
-                        
-                        DispatchQueue.main.async {
-                            self.similarResultsImageData.append(data!)
-                        }
-                        
-                    } else {
-                        print("ERROR! Unable to retrieve similar image data: \(String(describing: error))")
+        if let url = URL(string: "\(upslashImageFromSearchTerm)\(searchTerm)") {
+            // disable cache to retrive diffrent images
+            let config = URLSessionConfiguration.default
+            config.requestCachePolicy = .reloadIgnoringLocalCacheData
+            config.urlCache = nil
+            
+            let session = URLSession.init(configuration: config)
+            let dataTask = session.dataTask(with: url) { data, response, error in
+                if error == nil {
+                    
+                    DispatchQueue.main.async {
+                        self.similarResultsImageData.append(data!)
                     }
+                    
+                } else {
+                    print("ERROR! Unable to retrieve similar image data: \(String(describing: error))")
                 }
-                dataTask.resume()
-            } else {
-                print("ERROR! Unable to use URL")
             }
-
+            dataTask.resume()
+        } else {
+            print("ERROR! Unable to use URL")
+        }
+        
     }
     
 }

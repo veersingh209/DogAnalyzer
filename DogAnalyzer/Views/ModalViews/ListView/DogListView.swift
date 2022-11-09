@@ -9,53 +9,60 @@ import SwiftUI
 
 struct DogListView: View {
     @EnvironmentObject var model: ContentModel
+    
     @State private var showingAlert = false
+    @State private var showImagePopUp = false
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView {
+            
+            VStack {
                 
-                VStack(alignment: .leading) {
+                ZStack {
+                    Color.yellow.opacity(0.75)
                     
-                    if model.loading {
-                        ZStack {
-                            Color("systemListBackgroundColorLight")
-                                .edgesIgnoringSafeArea(.all)
-                            
-                            ProgressView()
-                                .scaleEffect(2)
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.yellow))
-                                .frame(width: geometry.size.width, height: geometry.size.height)
+                    Picker("Color Scheme", selection: $model.selectedBreed) {
+                        ForEach(typeOfBreeds, id: \.self) { breed in
+                            Text(breed.capitalized).tag(breed)
                         }
-
-                    } else {
-                        
-                        Picker("Color Scheme", selection: $model.selectedBreed) {
-                            ForEach(typeOfBreeds, id: \.self) { breed in
-                                Text(breed).tag(breed)
-                            }
-                        }
-                        .onChange(of: model.selectedBreed, perform:  { _ in
-                            self.model.setNewBreed(selectedBreed: model.selectedBreed)
-                        })
-                        
-                        
-                        
-                        
-                        Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: geometry.size.height/3, alignment: .top)
-                            .clipped()
-                        
-                        Description(showingAlert: $showingAlert)
-                        
-                        SimilarWebImages(geometry: geometry)
                     }
+                    .onChange(of: model.selectedBreed, perform:  { _ in
+                        self.model.setNewBreed(selectedBreed: model.selectedBreed)
+                    })
                     
                 }
-                .modifier(TextColorStyle())
-                .modifier(BackgroundColorStyle())
+                .frame(width: geometry.size.width, height: geometry.size.height/15, alignment: .center)
+                
+                ScrollView {
+                    
+                    VStack(alignment: .leading) {
+                        
+                        if model.loading {
+                            ZStack {
+                                Color("systemListBackgroundColorLight")
+                                    .edgesIgnoringSafeArea(.all)
+                                
+                                ProgressViewCustom(geometry: geometry)
+                            }
+                            
+                        } else {
+                            
+                            Image(uiImage: UIImage(data: model.imageDataListView ?? Data()) ?? UIImage())
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: geometry.size.height/3, alignment: .top)
+                                .clipped()
+                            
+                            Description(showingAlert: $showingAlert)
+                            
+                            SimilarWebImages(showImagePopUp: showImagePopUp, geometry: geometry)
+                        }
+                        
+                    }
+                    
+                    .modifier(TextColorStyle())
+                    .modifier(BackgroundColorStyle())
+                }
             }
             
             

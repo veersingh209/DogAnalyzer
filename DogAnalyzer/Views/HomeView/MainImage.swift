@@ -26,9 +26,7 @@ struct MainImage: View {
                         Rectangle()
                         
                         if model.loading {
-                            ProgressView()
-                                .scaleEffect(2)
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.yellow))
+                            ProgressViewCustom(geometry: geometry)
                         } else {
                             Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                                 .resizable()

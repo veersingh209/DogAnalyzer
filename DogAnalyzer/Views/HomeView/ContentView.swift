@@ -41,8 +41,12 @@ struct ContentView: View {
                     Spacer()
                     
                 }
-                
-                MainImage(activeSheet: $activeSheet, geometry: geometry)
+                if model.viewingListView {
+                    ProgressViewCustom(geometry: geometry)
+                } else {
+                    MainImage(activeSheet: $activeSheet, geometry: geometry)
+                }
+
 
                 Buttons(activeSheet: $activeSheet, sourceType: $sourceType, geometry: geometry)
                 

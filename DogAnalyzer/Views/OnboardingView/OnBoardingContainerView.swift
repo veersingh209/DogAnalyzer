@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PopupView
 
 enum CurrentStep: Int {
     case welcome = 0

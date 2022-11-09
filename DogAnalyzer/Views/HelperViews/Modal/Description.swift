@@ -15,10 +15,17 @@ struct Description: View {
         
         VStack(alignment: .leading, spacing: 1.0) {
             
-            Text(model.identifier ?? titleErrorMessage)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.bottom)
+            if model.viewingListView {
+                Text(model.identifierListView ?? titleErrorMessage)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom)
+            } else {
+                Text(model.identifier ?? titleErrorMessage)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom)
+            }
             
             ZStack {
                 Rectangle()
