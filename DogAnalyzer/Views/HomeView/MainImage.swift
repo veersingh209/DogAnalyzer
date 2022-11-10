@@ -20,7 +20,12 @@ struct MainImage: View {
                 
                 // Main image
                 Button {
-                    activeSheet = .showDetailView
+                    if model.shuffleMode {
+                        activeSheet = .showDogShuffleView
+                    } else {
+                        activeSheet = .showDetailView
+                    }
+
                 } label: {
                     ZStack {
                         Rectangle()
@@ -28,13 +33,13 @@ struct MainImage: View {
                         if model.loading {
                             ProgressViewCustom(geometry: geometry)
                         } else {
-                            Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
+                            Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage() )
                                 .resizable()
                                 .frame(alignment: .leading)
                                 .scaledToFill()
                                 .clipped()
                                 .overlay(alignment: .bottom) {
-                                    Text(model.identifier ?? titleErrorMessage)
+                                    Text(model.identifier?.capitalized ?? titleErrorMessage)
                                         .foregroundColor(.white)
                                         .frame(
                                             width: geometry.size.width - 40,
@@ -66,6 +71,8 @@ struct MainImage: View {
                 }, content: { item in
                     if item == .showDetailView {
                         DogDetailView()
+                    } else {
+                        DogShuffleView()
                     }
                 })
                 

@@ -11,7 +11,7 @@ enum ActiveSheet: Identifiable {
     case showDetailView,
          showOptionMenu,
          isImagePickerDisplay,
-         showDogListView
+         showDogShuffleView
     
     var id: String {
         "hash"
@@ -41,13 +41,10 @@ struct ContentView: View {
                     Spacer()
                     
                 }
-                if model.viewingListView {
-                    ProgressViewCustom(geometry: geometry)
-                } else {
-                    MainImage(activeSheet: $activeSheet, geometry: geometry)
-                }
-
-
+                
+                MainImage(activeSheet: $activeSheet, geometry: geometry)
+                
+                
                 Buttons(activeSheet: $activeSheet, sourceType: $sourceType, geometry: geometry)
                 
             }
@@ -69,11 +66,9 @@ struct ContentView: View {
                             self.model.newCameraImage(image: selectedImage!.pngData())
                         }
                     }
-            case .showDogListView:
-                DogListView()
-                    .onDisappear {
-                        model.resetURLtoLastKnown()
-                    }
+            case .showDogShuffleView:
+                DogShuffleView()
+
             }
         })
         

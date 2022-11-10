@@ -27,19 +27,6 @@ struct SettingsMainMenu: View {
                     Text("Change the app color scheme. Defaults to match device settings")
                 }
                 
-                Section {
-                    NavigationLink {
-                        ImageSource()
-                    } label: {
-                        Text("Dog Image Source")
-                    }
-                    .modifier(ListCellColorStyle())
-                } header: {
-                    Text("Source")
-                } footer: {
-                    Text("Change the source of which the random dog images are gathered")
-                }
-                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {

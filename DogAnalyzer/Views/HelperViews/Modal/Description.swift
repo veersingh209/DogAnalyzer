@@ -15,50 +15,53 @@ struct Description: View {
         
         VStack(alignment: .leading, spacing: 1.0) {
             
-            if model.viewingListView {
-                Text(model.identifierListView ?? titleErrorMessage)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom)
-            } else {
+            // Title (Dog breed)
+            // Hide if in list view
+            if !model.shuffleMode {
                 Text(model.identifier ?? titleErrorMessage)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.bottom)
             }
             
-            ZStack {
-                Rectangle()
-                    .fill(Color.white)
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                
-                VStack {
-                    HStack {
-                        Text("AI Confidence Level")
-                            .bold()
-                            .foregroundColor(.black)
-                        Spacer()
-                        Text(String(format: "%.2f%%", (model.confidence ?? 0) * 100))
-                            .bold()
-                            .foregroundColor(.black)
-                    }
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
-                    .padding(.top, 10)
+            // AI confidence level
+            // Hide if in list view
+            if !model.shuffleMode {
+                ZStack {
+                    Rectangle()
+                        .fill(Color.white)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
                     
-                    ProgressBar(value: model.confidence ?? 0)
-                        .frame(height: 10)
+                    VStack {
+                        HStack {
+                            Text("AI Confidence Level")
+                                .bold()
+                                .foregroundColor(.black)
+                            Spacer()
+                            Text(String(format: "%.2f%%", (model.confidence ?? 0) * 100))
+                                .bold()
+                                .foregroundColor(.black)
+                        }
                         .padding(.leading, 10)
                         .padding(.trailing, 10)
-                        .padding(.bottom, 10)
+                        .padding(.top, 10)
+                        
+                        ProgressBar(value: model.confidence ?? 0)
+                            .frame(height: 10)
+                            .padding(.leading, 10)
+                            .padding(.trailing, 10)
+                            .padding(.bottom, 10)
+                    }
                 }
             }
             
+            // Wiki info
             Text("\(model.dogInfo ?? wikiErrorMessage)")
                 .font(.caption)
                 .padding()
             
+            // Link to wiki
             HStack {
                 Spacer()
                 Button {
@@ -77,7 +80,7 @@ struct Description: View {
                     Button("OK", role: .cancel) { }
                 }
                 // Disable button if no associated Wiki result
-                .disabled(model.dogInfo == nil)
+                .disabled(model.identifier == nil)
                 .padding(.top, 10)
                 .padding(.trailing, 10)
             }

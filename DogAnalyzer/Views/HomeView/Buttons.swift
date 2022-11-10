@@ -46,24 +46,6 @@ struct Buttons: View {
                 
                 // Left side buttons
                 HStack(alignment: .center, spacing: 30) {
-                    
-                    // Dog list view
-                    Button(action: {
-                        model.setLoadingTrue()
-                        model.setNewBreed()
-                        activeSheet = .showDogListView
-                    }, label: {
-                        ZStack {
-                            Circle()
-                                .frame(width: geometry.size.width/9, height: geometry.size.height/9)
-                                .foregroundColor(.yellow)
-                            
-                            Image(systemName: "list.bullet")
-                                .font(.title2)
-                        }
-                    })
-                    .disabled(model.loading)
-                    
                     // Photo selector Button
                     Button(action: {
                         model.setLoadingTrue()
@@ -80,10 +62,8 @@ struct Buttons: View {
                         }
                     })
                     .disabled(model.loading)
-                    
-                    Spacer()
                 }
-                .padding(.leading, 35)
+                .padding(.trailing, 130)
                 
                 // Right side buttons
                 HStack(alignment: .center, spacing: 30) {
@@ -93,7 +73,8 @@ struct Buttons: View {
                     // Random Image Button
                     Button(action: {
                         model.setLoadingTrue()
-                        model.getDogData()
+                        model.setNewBreed(selectedBreed: typeOfBreeds.randomElement()!)
+                        //model.getDogData()
                     }, label: {
                         ZStack {
                             Circle()

@@ -1,5 +1,5 @@
 //
-//  DogListView.swift
+//  DogShuffleView.swift
 //  DogAnalyzer
 //
 //  Created by Veer Singh on 11/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DogListView: View {
+struct DogShuffleView: View {
     @EnvironmentObject var model: ContentModel
     
     @State private var showingAlert = false
@@ -22,7 +22,7 @@ struct DogListView: View {
                     Color.yellow.opacity(0.75)
                     
                     Picker("Color Scheme", selection: $model.selectedBreed) {
-                        ForEach(typeOfBreeds, id: \.self) { breed in
+                        ForEach(typeOfBreeds.sorted(by: <), id: \.self) { breed in
                             Text(breed.capitalized).tag(breed)
                         }
                     }
@@ -47,7 +47,7 @@ struct DogListView: View {
                             
                         } else {
                             
-                            Image(uiImage: UIImage(data: model.imageDataListView ?? Data()) ?? UIImage())
+                            Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                                 .resizable()
                                 .scaledToFill()
                                 .frame(height: geometry.size.height/3, alignment: .top)

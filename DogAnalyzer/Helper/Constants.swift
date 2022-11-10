@@ -13,7 +13,7 @@ let wikiURL = "https://en.wikipedia.org/wiki/"
 let upslashImageFromSearchTerm = "https://source.unsplash.com/random/?"
 let dogCeoBreedURLPrefix = "https://dog.ceo/api/breed/"
 let dogCeoBreedURLSufix = "/images/random/10"
-let dogCeoBreedURLListSufix = "/images/random"
+let dogCeoBreedURLShuffleSufix = "/images/random"
 
 let successMessage = "success"
 let titleErrorMessage = "NO TITLE FOUND"
@@ -23,18 +23,18 @@ let wikiErrorMessage = "No associated Wiki found"
 // Used to find match so we can grab addition dog pictures of match breed
 let typeOfBreeds = [
     "affenpinscher",
-    "african",
-    "airedale",
+    "african dog",
+    "airedale terrier",
     "akita",
-    "appenzeller",
+ //   "appenzeller sennenhund",
     "australian shepherd",
     "basenji",
     "beagle",
     "bluetick",
     "borzoi",
-    "bouvier",
+ //   "bouvier",
     "boxer",
-    "brabancon",
+    "brabancon griffon",
     "briard",
     "norwegian buhund",
     "boston bulldog",
@@ -91,7 +91,7 @@ let typeOfBreeds = [
     "tibetan mastiff",
     "mexicanhairless",
     "mix",
-    "bernese mountain",
+   // "bernese mountain",
     "swiss mountain",
     "newfoundland",
     "otterhound",
@@ -111,7 +111,7 @@ let typeOfBreeds = [
     "pug",
     "puggle",
     "pyrenees",
-    "redbone",
+    "redbone coonhound",
     "chesapeake retriever",
     "curly retriever",
     "flatcoated retriever",
@@ -132,7 +132,7 @@ let typeOfBreeds = [
     "shetland sheepdog",
     "shiba",
     "shihtzu",
-    "blenheim spaniel",
+ //   "blenheim spaniel",
     "brittany spaniel",
     "cocker spaniel",
     "irish spaniel",
@@ -141,7 +141,7 @@ let typeOfBreeds = [
     "welsh spaniel",
     "english springer",
     "stbernard",
-    "american terrier",
+ //   "american terrier",
     "australian terrier",
     "bedlington terrier",
     "border terrier",
