@@ -134,7 +134,7 @@ class ContentModel: ObservableObject {
         }
     }
     
-    func getDogData(breed: String? = nil, checkWithSecondWord: Bool? = false) {
+    func getDogData(breed: String? = nil, checkWithFirstWord: Bool? = false, checkWithMiddleWord: Bool? = false, checkWithLastWord: Bool? = true) {
         DispatchQueue.main.async {
             self.loading = true
             var selectedSourceURL = ""
@@ -142,21 +142,36 @@ class ContentModel: ObservableObject {
             if breed != nil {
                 self.identifier = breed
                 if breed!.contains(" ") {
-                    if !checkWithSecondWord! {
-                        // Search with last word only
-                        let firstWordBreedName = breed!.components(separatedBy: " ").dropFirst().joined(separator: " ")
-                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(firstWordBreedName)\(dogCeoBreedURLShuffleSufix)"
-                        print("USING URL: \(selectedSourceURL)")
-                    } else {
+                    
+                    if checkWithFirstWord! {
                         // Search with first word only
-                        let secondWordBreed = breed!.components(separatedBy: " ").dropLast().joined(separator: " ")
-                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(secondWordBreed)\(dogCeoBreedURLShuffleSufix)"
-                        print("USING URL: \(selectedSourceURL)")
+                        var firstWordBreed = breed!.components(separatedBy: " ").dropLast().joined(separator: " ")
+                        if firstWordBreed.contains(" ") {
+                            firstWordBreed = firstWordBreed.components(separatedBy: " ").dropLast().joined(separator: " ")
+                        }
+                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(firstWordBreed)\(dogCeoBreedURLShuffleSufix)"
+
+                    } else if checkWithMiddleWord! {
+                        // Search with middle word only
+                        var middleWordBreedName = breed!.components(separatedBy: " ").dropFirst().joined(separator: " ")
+                        if middleWordBreedName.contains(" ") {
+                            middleWordBreedName = middleWordBreedName.components(separatedBy: " ").dropLast().joined(separator: " ")
+                        }
+                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(middleWordBreedName)\(dogCeoBreedURLShuffleSufix)"
+
+                    } else if checkWithLastWord! {
+                        // Search with last word only
+                        var lastWordBreedName = breed!.components(separatedBy: " ").dropFirst().joined(separator: " ")
+                        if lastWordBreedName.contains(" ") {
+                            lastWordBreedName = lastWordBreedName.components(separatedBy: " ").dropFirst().joined(separator: " ")
+                        }
+                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(lastWordBreedName)\(dogCeoBreedURLShuffleSufix)"
                         
                     }
-                } else {
+                }
+                else {
+                    // Singe word breed
                     selectedSourceURL = "\(dogCeoBreedURLPrefix)\(breed!)\(dogCeoBreedURLShuffleSufix)"
-                    print("USING URL: \(selectedSourceURL)")
                 }
             }
             
@@ -184,8 +199,11 @@ class ContentModel: ObservableObject {
                                         self.getImageData(imageUrl: results.message)
                                     }
                                 } else {
-                                    // retry with second word
-                                    self.getDogData(breed: self.selectedBreed, checkWithSecondWord: true)
+                                    if checkWithLastWord! {
+                                        self.getDogData(breed: self.selectedBreed, checkWithFirstWord: true, checkWithLastWord: false)
+                                    } else if checkWithFirstWord! {
+                                        self.getDogData(breed: self.selectedBreed, checkWithMiddleWord: true, checkWithLastWord: false)
+                                    }
                                 }
                             } else {
                                 let results = try decoder.decode(DogCEO.self, from: data!)
@@ -212,7 +230,13 @@ class ContentModel: ObservableObject {
             }
             else {
                 print("ERROR! Not able to set URL: \(selectedSourceURL)")
-                self.getDogData(breed: self.selectedBreed, checkWithSecondWord: true)
+                if !checkWithFirstWord! {
+                    self.getDogData(breed: self.selectedBreed, checkWithFirstWord: true)
+                } else if !checkWithFirstWord! || !checkWithMiddleWord! {
+                    self.getDogData(breed: self.selectedBreed, checkWithMiddleWord: true)
+                } else {
+                    self.getDogData(breed: self.selectedBreed, checkWithLastWord: true)
+                }
             }
         }
     }
@@ -287,8 +311,8 @@ class ContentModel: ObservableObject {
         
         // Remove words after comma, and delete and occurrences of the word 'dog'
         let prefix = String(dogBreed.prefix(while: { $0 != "," }))
-        
-        let _ = Wikipedia.shared.requestArticle(language: language, title: prefix, imageWidth: 10) { result in
+        print("WIKI Prefix search term: \(prefix.capitalized)")
+        let _ = Wikipedia.shared.requestArticle(language: language, title: prefix.capitalized, imageWidth: 10) { result in
             switch result {
             case .success(let article):
                 self.identifier = prefix
