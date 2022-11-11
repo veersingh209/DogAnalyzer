@@ -64,7 +64,7 @@ let typeOfBreeds = [
     DogBreeds(dogCEOBreed: "germanshepherd", wikiSearchTerm: "German Shepherd"),
     DogBreeds(dogCEOBreed: "golden", wikiSearchTerm: "Golden Retriever"),
     DogBreeds(dogCEOBreed: "greyhound", wikiSearchTerm: "Greyhound"),
-    DogBreeds(dogCEOBreed: "groenendael", wikiSearchTerm: "elgian Shepherd"),
+    DogBreeds(dogCEOBreed: "groenendael", wikiSearchTerm: "Belgian Shepherd"),
     DogBreeds(dogCEOBreed: "havanese", wikiSearchTerm: "Havanese dog"),
     DogBreeds(dogCEOBreed: "hound", wikiSearchTerm: "Hound"),
     DogBreeds(dogCEOBreed: "husky", wikiSearchTerm: "Husky"),

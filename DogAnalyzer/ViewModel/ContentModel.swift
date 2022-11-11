@@ -209,18 +209,18 @@ class ContentModel: ObservableObject {
                             }
                             
                         } catch {
-                            print("ERROR! Unable to parse JSON Data: \(error)")
+                            Log.error("Unable to parse JSON Data: \(error)")
                         }
                         
                     } else {
-                        print("ERROR! Unable to reach Dog API: \(String(describing: error))")
+                        Log.error("Unable to reach Dog API: \(String(describing: error))")
                     }
                 }
                 
                 dataTask.resume()
             }
             else {
-                print("ERROR! Not able to set URL: \(selectedSourceURL)")
+                Log.error("Not able to set URL: \(selectedSourceURL)")
             }
             
         }
@@ -228,6 +228,7 @@ class ContentModel: ObservableObject {
     
     func getImageData(imageUrl: String?) {
         if let url = URL(string: imageUrl!) {
+            Log.info("Getting image data from URL \(url)")
             let session = URLSession.shared
             let dataTask = session.dataTask(with: url) { data, response, error in
                 if error == nil {
@@ -241,7 +242,7 @@ class ContentModel: ObservableObject {
                     }
                     
                 } else {
-                    print("ERROR! Unable to retrieve image data: \(String(describing: error))")
+                    Log.error("Unable to retrieve image data: \(String(describing: error))")
                 }
             }
             dataTask.resume()
@@ -258,7 +259,7 @@ class ContentModel: ObservableObject {
             
             // Make sure we were able to get results
             guard let results = request.results as? [VNClassificationObservation] else {
-                print("Could not classify animal")
+                Log.warning("Could not classify animal")
                 return
             }
             var result = results[0].identifier
@@ -271,7 +272,7 @@ class ContentModel: ObservableObject {
         do {
             try handler.perform([request])
         } catch {
-            print("Invalid image")
+            Log.warning("Invalid image")
         }
             self.wikiInfo(dogBreed: self.dog!.wikiSearchTerm)
         
@@ -279,9 +280,12 @@ class ContentModel: ObservableObject {
     }
     
     func wikiInfo(dogBreed: String) {
+        WikipediaNetworking.appAuthorEmailForAPI = "abcd@gmail.com"
+        
+        Log.info("Searching Wikipedia with the search term: \(dogBreed)")
         let _ = Wikipedia.shared.requestSearchResults(method: WikipediaSearchMethod.fullText, language: WikipediaLanguage("en"), term: dogBreed) { (data, error) in
             guard error == nil else {
-                print("ERROR! Unable to find Wiki response")
+                Log.warning("Unable to find Wiki response")
                 self.dogInfo = nil
                 return
             }
@@ -314,20 +318,20 @@ class ContentModel: ObservableObject {
         for (index, element) in highest.enumerated() {
             if element == highest.max() {
                 highestIndex = index
-                print("Highest Number found: \(element)")
+                Log.info("Highest Number found: \(element)")
             }
             
         }
         
-        // If matching breed found
+        // If matching breed found with confidence over 35%
         if highest.max()! > 0.35 {
-            print("Match found! Finding additional dog images")
+            Log.info("Match found! Breed \(breedGiven) matched with \(typeOfBreeds[highestIndex!].dogCEOBreed). Finding additional dog images")
             self.getImageSimilarResults(breed: typeOfBreeds[highestIndex!].dogCEOBreed)
         } else {
-            print("NO dog Match found! Using upsplash images")
-            print("UPLASH: backup in use ")
+            Log.info("NO dog Match found! UPLASH: backup in use")
             // Run 10 call to retrieve 10 different pictures
-            for _ in 0..<10 {
+            for number in 0..<10 {
+                Log.info("Set UPLASH image \(number)")
                 self.getSimilarImagesBackUp()
             }
         }
@@ -342,6 +346,7 @@ class ContentModel: ObservableObject {
         let startWord = breed.index(breed.endIndex, offsetBy: -size)
         let prefix = breed[startWord...]
         let urlToUSE = "\(dogCeoBreedURLPrefix)\(prefix)\(dogCeoBreedURLSufix)"
+        Log.info("Getting Similar Images with URL \(urlToUSE)")
         
         if let url = URL(string: urlToUSE) {
             var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
@@ -370,7 +375,7 @@ class ContentModel: ObservableObject {
                                                 }
                                                 
                                             } else {
-                                                print("ERROR! Unable to retrieve image data: \(String(describing: error))")
+                                                Log.error("Unable to retrieve image data: \(String(describing: error))")
                                             }
                                         }
                                         dataTask.resume()
@@ -380,16 +385,16 @@ class ContentModel: ObservableObject {
                                 
                             }
                         } else {
-                            print("Revived error response from API")
+                            Log.error("Revived error response from API")
                         }
                         
                         
                     } catch {
-                        print("ERROR! Unable to parse JSON Data: \(error)")
+                        Log.error("Unable to parse JSON Data: \(error)")
                     }
                     
                 } else {
-                    print("ERROR! Unable to reach Dog API: \(String(describing: error))")
+                    Log.error("Unable to reach Dog API: \(String(describing: error))")
                 }
             }
             
@@ -419,12 +424,12 @@ class ContentModel: ObservableObject {
                     }
                     
                 } else {
-                    print("ERROR! Unable to retrieve similar image data: \(String(describing: error))")
+                    Log.error("Unable to retrieve similar image data: \(String(describing: error))")
                 }
             }
             dataTask.resume()
         } else {
-            print("ERROR! Unable to use URL")
+            Log.error("Unable to use URL")
         }
         
     }

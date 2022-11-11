@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct DogAnalyzerApp: App {
+    
     var body: some Scene {
         WindowGroup {
             StartView()

@@ -40,8 +40,9 @@
 		48BA0800291434F000985034 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07FF291434F000985034 /* Description.swift */; };
 		48BA08042914352100985034 /* SimilarWebImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08032914352100985034 /* SimilarWebImages.swift */; };
 		48BA08092914692700985034 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08082914692700985034 /* ProgressBar.swift */; };
-		48C4A6962915962000207ADC /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6952915962000207ADC /* ProgressView.swift */; };
+		48C4A6962915962000207ADC /* ProgressViewCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6952915962000207ADC /* ProgressViewCustom.swift */; };
 		48C4A69D291DA15700207ADC /* WebImageBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */; };
+		48C4A69F291EE8DD00207ADC /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A69E291EE8DD00207ADC /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,8 +79,9 @@
 		48BA07FF291434F000985034 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		48BA08032914352100985034 /* SimilarWebImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarWebImages.swift; sourceTree = "<group>"; };
 		48BA08082914692700985034 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		48C4A6952915962000207ADC /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		48C4A6952915962000207ADC /* ProgressViewCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCustom.swift; sourceTree = "<group>"; };
 		48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageBottomSheet.swift; sourceTree = "<group>"; };
+		48C4A69E291EE8DD00207ADC /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				485461D2290CA29B00590D24 /* ML Model */,
 				485461D1290CA28900590D24 /* Color */,
 				48895360290849F9003FD054 /* Camera */,
+				48C4A69E291EE8DD00207ADC /* Logger.swift */,
 			);
 			path = Utilites;
 			sourceTree = "<group>";
@@ -280,7 +283,7 @@
 			children = (
 				48C4A6972915967500207ADC /* ModalViewsHelpers */,
 				48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */,
-				48C4A6952915962000207ADC /* ProgressView.swift */,
+				48C4A6952915962000207ADC /* ProgressViewCustom.swift */,
 				48BA07EC2911D40300985034 /* TutorialPopUps.swift */,
 			);
 			path = HelperViews;
@@ -381,6 +384,7 @@
 				4889535F290849D0003FD054 /* Coordinator.swift in Sources */,
 				485461CC290C8D9E00590D24 /* ListCellColorStyle.swift in Sources */,
 				48BA08042914352100985034 /* SimilarWebImages.swift in Sources */,
+				48C4A69F291EE8DD00207ADC /* Logger.swift in Sources */,
 				48BA07E32911C3A900985034 /* WelcomeView.swift in Sources */,
 				48BA07D829119C9100985034 /* MainImage.swift in Sources */,
 				48BA07ED2911D40300985034 /* TutorialPopUps.swift in Sources */,
@@ -394,7 +398,7 @@
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				4889537B290B014F003FD054 /* ContentModel.swift in Sources */,
 				48BA08092914692700985034 /* ProgressBar.swift in Sources */,
-				48C4A6962915962000207ADC /* ProgressView.swift in Sources */,
+				48C4A6962915962000207ADC /* ProgressViewCustom.swift in Sources */,
 				48895376290AF933003FD054 /* DogCEO.swift in Sources */,
 				480E4098290B1E720097BEB5 /* SettingsMainMenu.swift in Sources */,
 				4889535D29084930003FD054 /* ImagePickerView.swift in Sources */,

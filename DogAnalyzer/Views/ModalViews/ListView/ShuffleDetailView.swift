@@ -19,11 +19,12 @@ struct DogShuffleView: View {
             VStack {
                 
                 ZStack {
-                    Color.yellow.opacity(0.75)
+                    Color.yellow
                     
                     Picker("Color Scheme", selection: $model.selectedBreed) {
                         ForEach(typeOfBreeds, id: \.self) { breed in
-                            Text(breed.dogCEOBreed.capitalized).tag(breed.dogCEOBreed)
+                            Text(breed.dogCEOBreed.capitalized)
+                                .tag(breed.dogCEOBreed)
                         }
                     }
                     .onChange(of: model.selectedBreed, perform:  { _ in
@@ -33,9 +34,12 @@ struct DogShuffleView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height/15, alignment: .center)
                 
-                ScrollView {
-                    
-                    VStack(alignment: .leading) {
+                if model.loading {
+                    ProgressViewCustom(geometry: geometry)
+                } else {
+                    ScrollView {
+                        
+                        VStack(alignment: .leading) {
                             
                             Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                                 .resizable()
@@ -46,11 +50,12 @@ struct DogShuffleView: View {
                             Description(showingAlert: $showingAlert)
                             
                             SimilarWebImages(showImagePopUp: showImagePopUp, geometry: geometry)
+                            
+                        }
                         
+                        .modifier(TextColorStyle())
+                        .modifier(BackgroundColorStyle())
                     }
-                    
-                    .modifier(TextColorStyle())
-                    .modifier(BackgroundColorStyle())
                 }
             }
             

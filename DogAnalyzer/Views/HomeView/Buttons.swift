@@ -46,6 +46,12 @@ struct Buttons: View {
                 
                 // Left side buttons
                 HStack(alignment: .center, spacing: 30) {
+                    
+                    // Blank Circle, used for proper spacing
+                    Circle()
+                        .frame(width: geometry.size.width/9, height: geometry.size.height/9)
+                        .foregroundColor(.clear)
+
                     // Photo selector Button
                     Button(action: {
                         model.setLoadingTrue()
@@ -62,8 +68,10 @@ struct Buttons: View {
                         }
                     })
                     .disabled(model.loading)
+                    
+                    Spacer()
                 }
-                .padding(.trailing, 130)
+                .padding(.leading, 35)
                 
                 // Right side buttons
                 HStack(alignment: .center, spacing: 30) {
@@ -107,7 +115,7 @@ struct Buttons: View {
                 .padding(.trailing, 35)
                 
             }
-  
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
