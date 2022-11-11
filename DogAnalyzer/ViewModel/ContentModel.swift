@@ -23,19 +23,20 @@ enum UserOnboardStatus: Int {
 class ContentModel: ObservableObject {
     @Published var imageData: Data?
     @Published var similarResultsImageData = [Data?]()
+    @Published var selectedImage: Data?
     
-    @Published var identifier: String?
+    @Published var dog: DogBreeds?
     @Published var confidence: Double?
     @Published var dogInfo: String?
     @Published var loading: Bool
-    @Published var selectedBreed: String
     @Published var isOnboarding: Bool
-    
     @Published var shuffleMode: Bool = false
-    
     @Published var imageURL: String?
     
     @Published var colorSelection: AppColorSelection
+    
+    //Store values to use in Picker in ShuffleDetailView
+    @Published var selectedBreed: String
     
     let modelFile = try! MobileNetV2(configuration: MLModelConfiguration())
     let userDefaults = UserDefaults.standard
@@ -66,14 +67,14 @@ class ContentModel: ObservableObject {
         }
         
         self.shuffleMode = true
+        self.dog = typeOfBreeds.randomElement()!
         self.imageData = nil
-        self.identifier = nil
         self.confidence = nil
         self.dogInfo = nil
         self.loading = true
-        self.selectedBreed = typeOfBreeds.randomElement()!
+        self.selectedBreed = ""
         
-        self.getDogData(breed: self.selectedBreed)
+        self.getDogData(breed: self.dog!.dogCEOBreed)
     }
     
     func onBoardCompleted(status: UserOnboardStatus) {
@@ -87,18 +88,33 @@ class ContentModel: ObservableObject {
         }
     }
     
-    // Fetch new image for ShuffleView
-    func setNewBreed(selectedBreed: String) {
+    // Fetch new dog for when shuffle button pressed
+    func setNewBreed(selectedBreed: DogBreeds) {
         DispatchQueue.main.async {
             self.shuffleMode = true
+            self.dog = selectedBreed
             self.imageData = nil
-            self.identifier = nil
             self.confidence = nil
             self.dogInfo = nil
             self.loading = true
-            self.selectedBreed = selectedBreed
+            self.selectedBreed = selectedBreed.dogCEOBreed
             
             self.getDogData(breed: self.selectedBreed)
+        }
+    }
+    
+    // Fetch new dog when selected from Picker within ShuffleDetailView
+    func selectNewBreedPicker(newBreed: String) {
+        DispatchQueue.main.async {
+            self.shuffleMode = true
+            self.dog = DogBreeds(dogCEOBreed: newBreed, wikiSearchTerm: newBreed)
+            self.imageData = nil
+            self.confidence = nil
+            self.dogInfo = nil
+            self.loading = true
+            self.selectedBreed = self.dog!.dogCEOBreed
+            
+            self.findAssociatedDog(breedSelected: self.selectedBreed)
         }
     }
     
@@ -106,11 +122,12 @@ class ContentModel: ObservableObject {
         DispatchQueue.main.async {
             self.shuffleMode = false
             self.imageData = image
-            
-            self.identifier = nil
             self.confidence = nil
             self.dogInfo = nil
             self.loading = true
+            
+            self.dog = nil
+            self.selectedBreed = ""
             
             self.classifyAnimal(image: image)
         }
@@ -134,46 +151,33 @@ class ContentModel: ObservableObject {
         }
     }
     
+    // Used to set selected image from Similar WebImages within the detail view
+    func setSelectedImage(image: Data) {
+        DispatchQueue.main.async {
+            self.selectedImage = image
+        }
+    }
+    
+    // Find matching WikiSearch term
+    func findAssociatedDog(breedSelected: String) {
+        for dog in typeOfBreeds {
+            if dog.dogCEOBreed == breedSelected {
+                self.dog!.wikiSearchTerm = dog.wikiSearchTerm
+            }
+        }
+        self.getDogData(breed: self.selectedBreed)
+    }
+    
+    
     func getDogData(breed: String? = nil, checkWithFirstWord: Bool? = false, checkWithMiddleWord: Bool? = false, checkWithLastWord: Bool? = true) {
         DispatchQueue.main.async {
             self.loading = true
-            var selectedSourceURL = ""
             
             if breed != nil {
-                self.identifier = breed
-                if breed!.contains(" ") {
-                    
-                    if checkWithFirstWord! {
-                        // Search with first word only
-                        var firstWordBreed = breed!.components(separatedBy: " ").dropLast().joined(separator: " ")
-                        if firstWordBreed.contains(" ") {
-                            firstWordBreed = firstWordBreed.components(separatedBy: " ").dropLast().joined(separator: " ")
-                        }
-                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(firstWordBreed)\(dogCeoBreedURLShuffleSufix)"
-
-                    } else if checkWithMiddleWord! {
-                        // Search with middle word only
-                        var middleWordBreedName = breed!.components(separatedBy: " ").dropFirst().joined(separator: " ")
-                        if middleWordBreedName.contains(" ") {
-                            middleWordBreedName = middleWordBreedName.components(separatedBy: " ").dropLast().joined(separator: " ")
-                        }
-                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(middleWordBreedName)\(dogCeoBreedURLShuffleSufix)"
-
-                    } else if checkWithLastWord! {
-                        // Search with last word only
-                        var lastWordBreedName = breed!.components(separatedBy: " ").dropFirst().joined(separator: " ")
-                        if lastWordBreedName.contains(" ") {
-                            lastWordBreedName = lastWordBreedName.components(separatedBy: " ").dropFirst().joined(separator: " ")
-                        }
-                        selectedSourceURL = "\(dogCeoBreedURLPrefix)\(lastWordBreedName)\(dogCeoBreedURLShuffleSufix)"
-                        
-                    }
-                }
-                else {
-                    // Singe word breed
-                    selectedSourceURL = "\(dogCeoBreedURLPrefix)\(breed!)\(dogCeoBreedURLShuffleSufix)"
-                }
+                   self.selectedBreed = breed!
             }
+            let selectedSourceURL = "\(dogCeoBreedURLPrefix)\(self.selectedBreed)\(dogCeoBreedURLShuffleSufix)"
+
             
             if let url = URL(string: selectedSourceURL) {
                 
@@ -198,24 +202,9 @@ class ContentModel: ObservableObject {
                                         results.id = UUID()
                                         self.getImageData(imageUrl: results.message)
                                     }
-                                } else {
-                                    if checkWithLastWord! {
-                                        self.getDogData(breed: self.selectedBreed, checkWithFirstWord: true, checkWithLastWord: false)
-                                    } else if checkWithFirstWord! {
-                                        self.getDogData(breed: self.selectedBreed, checkWithMiddleWord: true, checkWithLastWord: false)
-                                    }
                                 }
-                            } else {
-                                let results = try decoder.decode(DogCEO.self, from: data!)
                                 
-                                if results.status == successMessage {
-                                    DispatchQueue.main.async {
-                                        results.id = UUID()
-                                        self.getImageData(imageUrl: results.message)
-                                    }
-                                }
                             }
-                            
                             
                         } catch {
                             print("ERROR! Unable to parse JSON Data: \(error)")
@@ -230,14 +219,8 @@ class ContentModel: ObservableObject {
             }
             else {
                 print("ERROR! Not able to set URL: \(selectedSourceURL)")
-                if !checkWithFirstWord! {
-                    self.getDogData(breed: self.selectedBreed, checkWithFirstWord: true)
-                } else if !checkWithFirstWord! || !checkWithMiddleWord! {
-                    self.getDogData(breed: self.selectedBreed, checkWithMiddleWord: true)
-                } else {
-                    self.getDogData(breed: self.selectedBreed, checkWithLastWord: true)
-                }
             }
+            
         }
     }
     
@@ -249,11 +232,8 @@ class ContentModel: ObservableObject {
                     DispatchQueue.main.async {
                         if self.shuffleMode {
                             self.imageData = data!
-                            self.wikiInfo(dogBreed: self.identifier!)
+                            self.wikiInfo(dogBreed: self.dog!.wikiSearchTerm)
                             self.loading = false
-                        } else {
-                            self.imageData = data!
-                            self.classifyAnimal(image: self.imageData)
                         }
                         
                     }
@@ -279,18 +259,11 @@ class ContentModel: ObservableObject {
                 print("Could not classify animal")
                 return
             }
-            if self.shuffleMode{
-                self.identifier = results[0].identifier
-                
-                self.identifier = self.identifier!.prefix(1).capitalized + self.identifier!.dropFirst()
-            } else {
-                self.identifier = results[0].identifier
-                
-                self.identifier = self.identifier!.prefix(1).capitalized + self.identifier!.dropFirst()
-            }
-            
+            var result = results[0].identifier
+            result = result.prefix(1).capitalized + result.dropFirst()
+            self.dog = DogBreeds(dogCEOBreed: result, wikiSearchTerm: result)
+
             self.confidence = Double(results[0].confidence)
-            
         }
         
         do {
@@ -298,84 +271,31 @@ class ContentModel: ObservableObject {
         } catch {
             print("Invalid image")
         }
-            self.wikiInfo(dogBreed: self.identifier!)
+            self.wikiInfo(dogBreed: self.dog!.wikiSearchTerm)
         
         self.loading = false
     }
     
-    
     func wikiInfo(dogBreed: String) {
-        var htmlText = " "
-        
-        let language = WikipediaLanguage("en")
-        
-        // Remove words after comma, and delete and occurrences of the word 'dog'
-        let prefix = String(dogBreed.prefix(while: { $0 != "," }))
-        print("WIKI Prefix search term: \(prefix.capitalized)")
-        let _ = Wikipedia.shared.requestArticle(language: language, title: prefix.capitalized, imageWidth: 10) { result in
-            switch result {
-            case .success(let article):
-                self.identifier = prefix
-                
-                htmlText = article.displayText.slice(from: "<p>", to: "</p>")!
-                htmlText = (htmlText.components(separatedBy: CharacterSet.decimalDigits)).joined(separator: "")
-                htmlText = htmlText.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
-                
-                self.dogInfo = htmlText.html2String
-                
-                // Re-search if found following key terms. Mean wiki article response not actual
-                if htmlText.contains(" refer to:") || htmlText.contains(" refers to:") || htmlText.contains(" may be:"){
-                    
-                    print("Unable to find Wiki response, retrying with dog suffix")
-                    let _ = Wikipedia.shared.requestArticle(language: language, title: String("\(prefix) (dog)"), imageWidth: 10) { result in
-                        switch result {
-                        case .success(let article):
-                            htmlText = article.displayText.slice(from: "<p>", to: "</p>")!
-                                .components(separatedBy: CharacterSet.decimalDigits)
-                                .joined(separator: "").replacingOccurrences(of: "[", with: "")
-                                .replacingOccurrences(of: "]", with: "")
-                            
-                            self.identifier = "\(prefix) (dog)"
-                            self.dogInfo = htmlText.html2String
-                        case .failure(_):
-                            print("Error! No Wiki response found for: \("\(prefix) dog")")
-                            self.dogInfo = nil
-                        }
-                    }
-                }
-            case .failure(_):
-                print("Unable to find Wiki response for \(prefix), retrying with last option")
-                
-                // Get last word only
-                if let index = dogBreed.lastIndex(of: ",") {
-                    let lastOption = String(dogBreed.suffix(from: index).dropFirst())
-                    
-                    let _ = Wikipedia.shared.requestArticle(language: language, title: String(lastOption), imageWidth: 10) { result in
-                        switch result {
-                        case .success(let article):
-                            htmlText = article.displayText.slice(from: "<p>", to: "</p>")!
-                                .components(separatedBy: CharacterSet.decimalDigits)
-                                .joined(separator: "").replacingOccurrences(of: "[", with: "")
-                                .replacingOccurrences(of: "]", with: "")
-                            
-                            self.identifier = lastOption
-                            self.dogInfo = htmlText.html2String
-                            
-                        case .failure(_):
-                            print("Error! No Wiki response found for: \(lastOption))")
-                            self.dogInfo = nil
-                        }
-                    }
-                    
-                }
+        let _ = Wikipedia.shared.requestSearchResults(method: WikipediaSearchMethod.fullText, language: WikipediaLanguage("en"), term: dogBreed) { (data, error) in
+            guard error == nil else {
+                print("ERROR! Unable to find Wiki response")
+                self.dogInfo = nil
+                return
+            }
+            guard let resultData = data else { return }
+            
+            for wikiData in resultData.items {
+                self.dogInfo = wikiData.displayText
+                break
             }
         }
         if self.shuffleMode {
             self.similarResultsImageData.removeAll()
-            self.getImageSimilarResults(breed: self.identifier!)
+            self.getImageSimilarResults(breed: self.dog!.dogCEOBreed)
         } else {
             self.similarResultsImageData.removeAll()
-            self.matchBreed(breedGiven: self.identifier!)
+            self.matchBreed(breedGiven: self.dog!.dogCEOBreed)
         }
     }
     
@@ -386,7 +306,7 @@ class ContentModel: ObservableObject {
         var highestIndex:Int?
         
         for breed in typeOfBreeds {
-            highest.append(breedGiven.levenshteinDistanceScore(to: breed, ignoreCase: true, trimWhiteSpacesAndNewLines: false))
+            highest.append(breedGiven.levenshteinDistanceScore(to: breed.dogCEOBreed, ignoreCase: true, trimWhiteSpacesAndNewLines: false))
             
         }
         for (index, element) in highest.enumerated() {
@@ -402,7 +322,7 @@ class ContentModel: ObservableObject {
         // If matching breed found
         if highest.max()! > 0.35 {
             print("Match found! Finding additional dog images")
-            self.getImageSimilarResults(breed: typeOfBreeds[highestIndex!])
+            self.getImageSimilarResults(breed: typeOfBreeds[highestIndex!].dogCEOBreed)
         } else {
             print("NO dog Match found! Using upsplash images")
             print("UPLASH: backup in use ")
@@ -483,7 +403,7 @@ class ContentModel: ObservableObject {
     // Main use case if user using camera image which doesn't contain a dog
     func getSimilarImagesBackUp() {
         // replace spaces with %20
-        let searchTerm = self.identifier!.replacingOccurrences(of: " ", with: "%20")
+        let searchTerm = self.dog!.dogCEOBreed.replacingOccurrences(of: " ", with: "%20")
         if let url = URL(string: "\(upslashImageFromSearchTerm)\(searchTerm)") {
             // disable cache to retrive different images
             let config = URLSessionConfiguration.default

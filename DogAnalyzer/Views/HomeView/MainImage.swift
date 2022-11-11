@@ -39,7 +39,7 @@ struct MainImage: View {
                                 .scaledToFill()
                                 .clipped()
                                 .overlay(alignment: .bottom) {
-                                    Text(model.identifier?.capitalized ?? titleErrorMessage)
+                                    Text(model.dog?.wikiSearchTerm ?? titleErrorMessage)
                                         .foregroundColor(.white)
                                         .frame(
                                             width: geometry.size.width - 40,

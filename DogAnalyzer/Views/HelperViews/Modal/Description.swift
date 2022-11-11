@@ -18,7 +18,7 @@ struct Description: View {
             // Title (Dog breed)
             // Hide if in list view
             if !model.shuffleMode {
-                Text(model.identifier ?? titleErrorMessage)
+                Text(model.dog?.wikiSearchTerm ?? titleErrorMessage)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.bottom)
@@ -65,7 +65,7 @@ struct Description: View {
             HStack {
                 Spacer()
                 Button {
-                    let id = model.identifier!.replacingOccurrences(of: " ", with: "_")
+                    let id = model.dog!.wikiSearchTerm.replacingOccurrences(of: " ", with: "_")
                     
                     if let url = URL(string: "\(wikiURL)\(id)") {
                         UIApplication.shared.open(url)
@@ -80,7 +80,7 @@ struct Description: View {
                     Button("OK", role: .cancel) { }
                 }
                 // Disable button if no associated Wiki result
-                .disabled(model.identifier == nil)
+                .disabled(model.dogInfo == nil)
                 .padding(.top, 10)
                 .padding(.trailing, 10)
             }

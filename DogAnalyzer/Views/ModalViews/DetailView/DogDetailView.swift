@@ -36,10 +36,5 @@ struct DogDetailView: View {
             }
             
         }
-        .popup(isPresented: $showImagePopUp, type: .toast, position: .bottom, animation: .default, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: false, backgroundColor: Color.yellow.opacity(0.2), dismissCallback: {
-            showImagePopUp = false
-        }, view: {
-            TutorialPopUps(text: "Click the main image to open up the detailed view", currentStep: 6, height: 100, width: 300)
-        })
     }
 }

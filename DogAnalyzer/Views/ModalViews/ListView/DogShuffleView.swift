@@ -22,12 +22,12 @@ struct DogShuffleView: View {
                     Color.yellow.opacity(0.75)
                     
                     Picker("Color Scheme", selection: $model.selectedBreed) {
-                        ForEach(typeOfBreeds.sorted(by: <), id: \.self) { breed in
-                            Text(breed.capitalized).tag(breed)
+                        ForEach(typeOfBreeds, id: \.self) { breed in
+                            Text(breed.dogCEOBreed.capitalized).tag(breed.dogCEOBreed)
                         }
                     }
                     .onChange(of: model.selectedBreed, perform:  { _ in
-                        self.model.setNewBreed(selectedBreed: model.selectedBreed)
+                        self.model.selectNewBreedPicker(newBreed: model.selectedBreed)
                     })
                     
                 }
