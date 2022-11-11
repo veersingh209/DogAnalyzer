@@ -32,10 +32,12 @@ struct SimilarWebImages: View {
                 ForEach(0..<model.similarResultsImageData.count, id: \.self) { imageIdx in
                     
                     Image(uiImage: UIImage(data: model.similarResultsImageData[imageIdx] ?? Data()) ?? UIImage() )
+                        .resizable()
+                        .scaledToFill()
                         .frame(width: geometry.size.width/2, height: geometry.size.height/5, alignment: .top)
                         .cornerRadius(10)
                         .onTapGesture {
-                            model.setSelectedImage(image: model.similarResultsImageData[imageIdx]!)
+                            model.setSelectedImage(image: model.similarResultsImageData[imageIdx]!, id: imageIdx)
                             showImagePopUp = true
                         }
                     

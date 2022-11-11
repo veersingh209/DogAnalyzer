@@ -23,6 +23,8 @@ enum UserOnboardStatus: Int {
 class ContentModel: ObservableObject {
     @Published var imageData: Data?
     @Published var similarResultsImageData = [Data?]()
+    
+    // Store user selected image(use in detailViews)
     @Published var selectedImage: Data?
     
     @Published var dog: DogBreeds?
@@ -152,7 +154,7 @@ class ContentModel: ObservableObject {
     }
     
     // Used to set selected image from Similar WebImages within the detail view
-    func setSelectedImage(image: Data) {
+    func setSelectedImage(image: Data, id: Int) {
         DispatchQueue.main.async {
             self.selectedImage = image
         }
@@ -316,8 +318,6 @@ class ContentModel: ObservableObject {
             }
             
         }
-        print("Current image: \(breedGiven)")
-        print("Matching name: \(typeOfBreeds[highestIndex!])")
         
         // If matching breed found
         if highest.max()! > 0.35 {

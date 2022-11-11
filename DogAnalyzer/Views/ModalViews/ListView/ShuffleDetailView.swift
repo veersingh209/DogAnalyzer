@@ -36,16 +36,6 @@ struct DogShuffleView: View {
                 ScrollView {
                     
                     VStack(alignment: .leading) {
-                        
-                        if model.loading {
-                            ZStack {
-                                Color("systemListBackgroundColorLight")
-                                    .edgesIgnoringSafeArea(.all)
-                                
-                                ProgressViewCustom(geometry: geometry)
-                            }
-                            
-                        } else {
                             
                             Image(uiImage: UIImage(data: model.imageData ?? Data()) ?? UIImage())
                                 .resizable()
@@ -56,7 +46,6 @@ struct DogShuffleView: View {
                             Description(showingAlert: $showingAlert)
                             
                             SimilarWebImages(showImagePopUp: showImagePopUp, geometry: geometry)
-                        }
                         
                     }
                     

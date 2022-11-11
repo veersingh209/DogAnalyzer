@@ -53,17 +53,17 @@ struct HomeTutorialView: View {
             .popup(isPresented: $showCameraPopUp, type: .floater(verticalPadding: 500, useSafeAreaInset: false), position: .top, animation: .default, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: false, backgroundColor: Color.yellow.opacity(0.2), dismissCallback: {
                 showPhotoPopUp = true
             }, view: {
-                TutorialPopUps(text: "To take a new picture with your camera click here", currentStep: 2, height: 300, width: 300)
+                TutorialPopUps(text: "To take a picture of your dog click here", currentStep: 2, height: 300, width: 300)
             })
             .popup(isPresented: $showPhotoPopUp, type: .floater(verticalPadding: 520, useSafeAreaInset: false), position: .top, animation: .default, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: false, backgroundColor: Color.yellow.opacity(0.2), dismissCallback: {
                 showRandomImagePopUp = true
             }, view: {
-                TutorialPopUps(text: "To upload a existing picture from your camera roll click here", currentStep: 3, height: 300, width: 300)
+                TutorialPopUps(text: "To upload a existing dog pictures from your camera roll click here", currentStep: 3, height: 300, width: 300)
             })
             .popup(isPresented: $showRandomImagePopUp, type: .floater(verticalPadding: 520, useSafeAreaInset: false), position: .top, animation: .default, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: false, backgroundColor: Color.yellow.opacity(0.2), dismissCallback: {
                 showSettingsPopUp = true
             }, view: {
-                TutorialPopUps(text: "To display random dog images click here", currentStep: 4, height: 100, width: 300)
+                TutorialPopUps(text: "To display random dog breed click here", currentStep: 4, height: 100, width: 300)
             })
             .popup(isPresented: $showSettingsPopUp, type: .floater(verticalPadding: 150, useSafeAreaInset: false), position: .bottom, animation: .default, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: false, backgroundColor: Color.yellow.opacity(0.2), dismissCallback: {
                 currentStep = .detailTutorial

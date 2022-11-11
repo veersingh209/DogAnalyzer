@@ -36,11 +36,10 @@
 		48BA07EB2911CF9400985034 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 48BA07EA2911CF9400985034 /* PopupView */; };
 		48BA07ED2911D40300985034 /* TutorialPopUps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07EC2911D40300985034 /* TutorialPopUps.swift */; };
 		48BA07F129132EFF00985034 /* DetailTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07F029132EFF00985034 /* DetailTutorialView.swift */; };
-		48BA07F32914325E00985034 /* DogShuffleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07F22914325E00985034 /* DogShuffleView.swift */; };
+		48BA07F32914325E00985034 /* ShuffleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07F22914325E00985034 /* ShuffleDetailView.swift */; };
 		48BA0800291434F000985034 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA07FF291434F000985034 /* Description.swift */; };
 		48BA08042914352100985034 /* SimilarWebImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08032914352100985034 /* SimilarWebImages.swift */; };
 		48BA08092914692700985034 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA08082914692700985034 /* ProgressBar.swift */; };
-		48C4A6932914802900207ADC /* SimilarImagePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6922914802900207ADC /* SimilarImagePopUpView.swift */; };
 		48C4A6962915962000207ADC /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A6952915962000207ADC /* ProgressView.swift */; };
 		48C4A69D291DA15700207ADC /* WebImageBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */; };
 /* End PBXBuildFile section */
@@ -74,12 +73,11 @@
 		48BA07E72911C56800985034 /* OnboardingCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomButton.swift; sourceTree = "<group>"; };
 		48BA07EC2911D40300985034 /* TutorialPopUps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPopUps.swift; sourceTree = "<group>"; };
 		48BA07F029132EFF00985034 /* DetailTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTutorialView.swift; sourceTree = "<group>"; };
-		48BA07F22914325E00985034 /* DogShuffleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogShuffleView.swift; sourceTree = "<group>"; };
+		48BA07F22914325E00985034 /* ShuffleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleDetailView.swift; sourceTree = "<group>"; };
 		48BA07FB2914343300985034 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		48BA07FF291434F000985034 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		48BA08032914352100985034 /* SimilarWebImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarWebImages.swift; sourceTree = "<group>"; };
 		48BA08082914692700985034 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		48C4A6922914802900207ADC /* SimilarImagePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarImagePopUpView.swift; sourceTree = "<group>"; };
 		48C4A6952915962000207ADC /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,7 +224,6 @@
 			children = (
 				48BA08072914689700985034 /* DetailView */,
 				48BA07F4291432F300985034 /* ListView */,
-				48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */,
 			);
 			path = ModalViews;
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 				48BA07E22911C3A900985034 /* WelcomeView.swift */,
 				48BA07E42911C51200985034 /* HomeTutorialView.swift */,
 				48BA07F029132EFF00985034 /* DetailTutorialView.swift */,
-				48BA07EC2911D40300985034 /* TutorialPopUps.swift */,
 			);
 			path = OnboardingView;
 			sourceTree = "<group>";
@@ -266,7 +262,7 @@
 		48BA07F4291432F300985034 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
-				48BA07F22914325E00985034 /* DogShuffleView.swift */,
+				48BA07F22914325E00985034 /* ShuffleDetailView.swift */,
 			);
 			path = ListView;
 			sourceTree = "<group>";
@@ -282,21 +278,22 @@
 		48C4A6942915960D00207ADC /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
+				48C4A6972915967500207ADC /* ModalViewsHelpers */,
+				48C4A69C291DA15700207ADC /* WebImageBottomSheet.swift */,
 				48C4A6952915962000207ADC /* ProgressView.swift */,
-				48C4A6972915967500207ADC /* Modal */,
+				48BA07EC2911D40300985034 /* TutorialPopUps.swift */,
 			);
 			path = HelperViews;
 			sourceTree = "<group>";
 		};
-		48C4A6972915967500207ADC /* Modal */ = {
+		48C4A6972915967500207ADC /* ModalViewsHelpers */ = {
 			isa = PBXGroup;
 			children = (
 				48BA08082914692700985034 /* ProgressBar.swift */,
 				48BA07FF291434F000985034 /* Description.swift */,
 				48BA08032914352100985034 /* SimilarWebImages.swift */,
-				48C4A6922914802900207ADC /* SimilarImagePopUpView.swift */,
 			);
-			path = Modal;
+			path = ModalViewsHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,9 +388,8 @@
 				480E409D290B2ED10097BEB5 /* AppColor.swift in Sources */,
 				48BA07E82911C56800985034 /* OnboardingCustomButton.swift in Sources */,
 				480E40A1290C6ECD0097BEB5 /* BackgroundColorStyle.swift in Sources */,
-				48C4A6932914802900207ADC /* SimilarImagePopUpView.swift in Sources */,
 				488953712909E532003FD054 /* DogDetailView.swift in Sources */,
-				48BA07F32914325E00985034 /* DogShuffleView.swift in Sources */,
+				48BA07F32914325E00985034 /* ShuffleDetailView.swift in Sources */,
 				48BA07DA29119D9300985034 /* Buttons.swift in Sources */,
 				4889533F29073F6E003FD054 /* DogAnalyzerApp.swift in Sources */,
 				4889537B290B014F003FD054 /* ContentModel.swift in Sources */,
